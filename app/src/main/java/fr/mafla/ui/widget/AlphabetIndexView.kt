@@ -48,6 +48,11 @@ class AlphabetIndexView @JvmOverloads constructor(
     private var fisheye = 0f
     private var fisheyeAnimator: ValueAnimator? = null
 
+    // The dot marking the current section glides between letters instead of jumping.
+    // Negative means "not placed yet": the next draw puts it on the current letter.
+    private var dotY = -1f
+    private var dotAnimator: ValueAnimator? = null
+
     private val rowHeight = resources.getDimension(R.dimen.index_rail_row)
     private val dotRadius = dp(2f)
     private val dotInset = dp(12f)
@@ -64,6 +69,8 @@ class AlphabetIndexView @JvmOverloads constructor(
     fun setSections(newSections: List<AlphabetIndex.Section>) {
         if (newSections == sections) return
         sections = newSections
+        dotAnimator?.cancel()
+        dotY = -1f
         contentDescription = context.getString(R.string.alphabet_index)
         requestLayout()
         invalidate()
@@ -72,7 +79,28 @@ class AlphabetIndexView @JvmOverloads constructor(
     fun setCurrent(letter: String) {
         if (letter == current) return
         current = letter
-        invalidate()
+        val target = rowCenterOf(letter) ?: return invalidate()
+        dotAnimator?.cancel()
+        if (dotY < 0f || !isLaidOut || touched >= 0 || !context.isMotionEnabled()) {
+            dotY = target
+            invalidate()
+            return
+        }
+        dotAnimator = ValueAnimator.ofFloat(dotY, target).apply {
+            duration = resources.getInteger(R.integer.motion_switch).toLong()
+            interpolator = AnimationUtils.loadInterpolator(context, R.interpolator.standard)
+            addUpdateListener {
+                dotY = it.animatedValue as Float
+                invalidate()
+            }
+            start()
+        }
+    }
+
+    private fun rowCenterOf(letter: String): Float? {
+        val index = sections.indexOfFirst { it.letter == letter }
+        if (index < 0) return null
+        return paddingTop + rowHeight * index + rowHeight / 2f
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -109,8 +137,11 @@ class AlphabetIndexView @JvmOverloads constructor(
             canvas.drawText(section.letter, 0f, -baselineShift, textPaint)
             canvas.restore()
 
-            if (isCurrent)
-                canvas.drawCircle(centerX - dotInset, rowCenter, dotRadius, dotPaint)
+        }
+
+        if (touched < 0) {
+            if (dotY < 0f) dotY = rowCenterOf(current) ?: return
+            canvas.drawCircle(centerX - dotInset, dotY, dotRadius, dotPaint)
         }
     }
 
@@ -135,7 +166,12 @@ class AlphabetIndexView @JvmOverloads constructor(
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 parent?.requestDisallowInterceptTouchEvent(false)
-                if (touched >= 0) current = sections[touched].letter
+                if (touched >= 0) {
+                    // The finger already took the list there: the dot just reappears on it
+                    current = sections[touched].letter
+                    dotAnimator?.cancel()
+                    dotY = rowCenterOf(current) ?: -1f
+                }
                 touched = -1
                 animateFisheye(0f)
                 listener?.onScrubEnd()
@@ -184,6 +220,7 @@ class AlphabetIndexView @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         fisheyeAnimator?.cancel()
+        dotAnimator?.cancel()
         super.onDetachedFromWindow()
     }
 
