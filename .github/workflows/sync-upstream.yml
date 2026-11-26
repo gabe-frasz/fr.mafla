@@ -1,0 +1,27 @@
+name: Sync upstream
+
+# Mantém a branch `master` como espelho do Olauncher original.
+# Só faz fast-forward: se `master` divergir do upstream, o job falha.
+on:
+  schedule:
+    - cron: "0 6 * * 1" # toda segunda, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Fast-forward master to upstream
+        run: |
+          git remote add upstream https://github.com/tanujnotes/Olauncher.git
+          git fetch upstream master
+          git merge --ff-only upstream/master
+          git push origin master
