@@ -2,17 +2,24 @@
 
 Launcher minimalista para Android. Em desenvolvimento.
 
-Baseado no [Olauncher](https://github.com/tanujnotes/Olauncher), de [@tanujnotes](https://github.com/tanujnotes), sob a licença [GNU GPLv3](LICENSE).
+Nasceu como fork do [Olauncher](https://github.com/tanujnotes/Olauncher), de [@tanujnotes](https://github.com/tanujnotes), e foi modificado a partir dele. Assim como o original, é distribuído sob a licença [GNU GPLv3](LICENSE).
 
 ## Build
 
 ```bash
-./gradlew assembleMaflaDebug     # APK de debug (fr.mafla.debug)
-./gradlew assembleMaflaRelease   # APK de release (fr.mafla)
+./gradlew assembleDebug     # APK de debug (fr.mafla.debug)
+./gradlew assembleRelease   # APK de release (fr.mafla)
 ```
 
-## Como o repositório funciona
+## Relação com o Olauncher
 
-- `master`: espelho do Olauncher, atualizado toda semana pelo workflow `Sync upstream`. Não commite aqui.
-- `mafla` (padrão): o app, com as customizações. Para trazer as atualizações do upstream: `git merge master`.
-- As strings com o nome do app ficam em `app/src/mafla/res/` e são geradas por `python3 scripts/rebrand_strings.py`. Rode de novo depois de cada merge do upstream.
+O Mafla não acompanha mais o upstream automaticamente. Para consultar e trazer fixes pontuais:
+
+```bash
+git remote add upstream https://github.com/tanujnotes/Olauncher.git   # uma vez só
+git fetch upstream
+git log upstream/master                                                # ver o que mudou
+git cherry-pick <commit>                                               # trazer um fix
+```
+
+Como o pacote foi renomeado de `app.olauncher` para `fr.mafla`, a maioria dos cherry-picks vai precisar de ajuste manual.

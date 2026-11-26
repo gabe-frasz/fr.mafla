@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply from: 'mafla.gradle'
 
 android {
     compileSdk 36
@@ -15,7 +14,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "app.olauncher"
+        applicationId "fr.mafla"
         minSdkVersion 24
         targetSdkVersion 36
         versionCode 117
@@ -46,7 +45,7 @@ android {
         includeInApk = false
         includeInBundle = true
     }
-    namespace 'app.olauncher'
+    namespace 'fr.mafla'
 }
 
 dependencies {
@@ -62,9 +61,6 @@ dependencies {
 
     // Navigation
     implementation libs.navigation.fragment.ktx
-
-    // Work Manager
-    implementation libs.work.runtime.ktx
 
     //Material dependency
     implementation libs.material
