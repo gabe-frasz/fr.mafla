@@ -46,6 +46,7 @@ class AppDrawerAdapter(
     companion object {
         const val VIEW_TYPE_APP = 0
         const val VIEW_TYPE_PRIVATE_HEADER = 1
+        private const val PAYLOAD_LETTERS = "letters"
 
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AppModel>() {
             override fun areItemsTheSame(oldItem: AppModel, newItem: AppModel): Boolean = when {
@@ -82,6 +83,7 @@ class AppDrawerAdapter(
             field = value
             notifyItemRangeChanged(0, itemCount)
         }
+    @Volatile
     var isSearching = false
         private set
     private var currentSection = ""
@@ -193,6 +195,24 @@ class AppDrawerAdapter(
         }
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (holder is ViewHolder && payloads.isNotEmpty() && payloads.all { it == PAYLOAD_LETTERS }) {
+            holder.bindLetter(sectionLetterAt(holder.bindingAdapterPosition), currentSection, showLetters)
+            return
+        }
+        super.onBindViewHolder(holder, position, payloads)
+    }
+
+    /**
+     * A row that didn't change isn't rebound after a list change, but its gutter can: search
+     * hides the letters, and filtering can make a row the first of its letter. Reapply the
+     * gutter on every row, including the ones cached off screen.
+     */
+    private fun onListCommitted() {
+        notifyItemRangeChanged(0, itemCount, PAYLOAD_LETTERS)
+        onListChanged?.invoke(appFilteredList)
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         try {
             if (appFilteredList.isEmpty() || position == RecyclerView.NO_POSITION) return
@@ -241,7 +261,7 @@ class AppDrawerAdapter(
                     val items = it as MutableList<AppModel>
                     appFilteredList = items
                     submitList(appFilteredList) {
-                        onListChanged?.invoke(appFilteredList)
+                        onListCommitted()
                         autoLaunch(constraint?.toString())
                     }
                 }
@@ -285,7 +305,7 @@ class AppDrawerAdapter(
         )
         this.appsList = appsList
         this.appFilteredList = appsList
-        submitList(appsList) { onListChanged?.invoke(appFilteredList) }
+        submitList(appsList) { onListCommitted() }
     }
 
     fun launchFirstInList() {
