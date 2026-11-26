@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">Establece Mafla como predeterminado primero</string>
+    <string name="admin_permission_message">Mafla promete usar el permiso de accesibilidad de manera responsable. Mafla no recopila ni comparte ningún dato.</string>
+    <string name="welcome_to_olauncher_settings">¡Bienvenido a la configuración!</string>
+    <string name="keyboard_message">Hola, el teclado es la forma más rápida de encontrar y abrir aplicaciones en Mafla. ¿Podemos pedirte que lo mantengas activado unos días más y luego decidas?\n\nLa decisión siempre es tuya.</string>
+    <string name="wallpaper_message">Mafla ofrece hermosos fondos de pantalla nuevos a diario. ¡Dale un nuevo look a tu pantalla de inicio cada día, gratis!
+        \n\n¿Quieres probarlo?</string>
+    <string name="accessibility_service_description">El permiso de accesibilidad es necesario para habilitar el gesto de doble toque para bloquear. Ningún dato obtenido por Mafla a través de este servicio saldrá de tu dispositivo.</string>
+    <string name="please_set_olauncher_as_default_first">Primero seleccione Mafla como su iniciador predeterminado</string>
+    <string name="hidden_apps_message">Nota: pulsa \'Mafla\' en la parte superior de esta página de Configuración para encontrar las aplicaciones ocultas.</string>
+    <string name="accessibility_disclosure">Mafla usa la Accessibility Service API solo para una función: Tocar dos veces para bloquear. Permite que Mafla bloquee tu pantalla cuando tocas dos veces la pantalla de inicio.\n\nEl servicio solo ve los toques dentro de Mafla y solo los usa para bloquear tu pantalla. No mira otras aplicaciones ni nada de lo que escribes.\n\nNo se recopila, almacena ni comparte ningún dato. Nada sale de tu dispositivo.\n\nToca Aceptar y, después, activa Mafla en los ajustes de Accesibilidad de tu dispositivo.</string>
+    <string name="launcher_failed_to_lock_device">Mafla no pudo bloquear el dispositivo.\nVerifique la configuración de la aplicación.</string>
+    <string name="olauncher_is_not_default_launcher">Mafla no es tu lanzador predeterminado.\nLa actualización diaria del fondo de pantalla puede fallar.</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">पहले Mafla को डिफ़ॉल्ट सेट करें</string>
+    <string name="admin_permission_message">Mafla एक्सेसिबिलिटी परमिशन का ज़िम्मेदारी से उपयोग करने का वादा करता है। Mafla कोई डेटा एकत्र या साझा नहीं करता है।</string>
+    <string name="welcome_to_olauncher_settings">सेटिंग्स में आपका स्वागत है!</string>
+    <string name="keyboard_message">नमस्ते, Mafla में ऐप्स ढूंढने और खोलने का सबसे तेज़ तरीका कीबोर्ड है। क्या हम आपसे अनुरोध कर सकते हैं कि इसे कुछ और दिनों के लिए ऑन रखें और फिर फ़ैसला करें?
+        \n\nचुनाव हमेशा आपका है।</string>
+    <string name="wallpaper_message">Mafla हर रोज़ मुफ़्त में खूबसूरत नए वॉलपेपर देता है। अपनी होम स्क्रीन को हर दिन एक नया लुक दें, बिल्कुल मुफ़्त!
+        \n\nक्या आप इसे आज़माना चाहेंगे?</string>
+    <string name="accessibility_service_description">डबल टैप से लॉक करने वाले जेस्चर को चालू करने के लिए एक्सेसिबिलिटी परमिशन ज़रूरी है। इस सर्विस के ज़रिए Mafla द्वारा प्राप्त कोई भी डेटा आपकी डिवाइस से बाहर नहीं जाता।</string>
+    <string name="please_set_olauncher_as_default_first">कृपया पहले Mafla को डिफ़ॉल्ट सेट करें</string>
+    <string name="hidden_apps_message">नोट: अपनी छिपी हुई ऐप्स ढूंढने के लिए इस Settings पेज के ऊपर \'Mafla\' पर टैप करें।</string>
+    <string name="accessibility_disclosure">Mafla, Accessibility Service API का इस्तेमाल सिर्फ़ एक फ़ीचर के लिए करता है: “लॉक करने के लिए डबल टैप करें”। इससे होम स्क्रीन पर डबल टैप करने पर Mafla आपकी स्क्रीन लॉक कर पाता है।\n\nयह सर्विस सिर्फ़ Mafla के अंदर किए गए टैप देखती है, और उनका इस्तेमाल सिर्फ़ आपकी स्क्रीन लॉक करने के लिए करती है। यह दूसरे ऐप या आपका टाइप किया हुआ कुछ भी नहीं देखती।\n\nकोई डेटा इकट्ठा, सेव या शेयर नहीं किया जाता। कुछ भी आपके डिवाइस से बाहर नहीं जाता।\n\n“स्वीकार करें” पर टैप करें, फिर अपने डिवाइस की एक्सेसिबिलिटी सेटिंग में Mafla चालू करें।</string>
+    <string name="launcher_failed_to_lock_device">Mafla डिवाइस को लॉक करने में विफल रहा।\nकृपया अपनी ऐप सेटिंग्स जांचें।</string>
+    <string name="olauncher_is_not_default_launcher">Mafla डिफ़ॉल्ट नहीं है। वॉलपेपर अपडेट विफल हो जाएगा।</string>
+</resources>

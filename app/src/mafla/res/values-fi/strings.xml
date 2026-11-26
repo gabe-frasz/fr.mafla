@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">Aseta ensin Mafla oletukseksi</string>
+    <string name="admin_permission_message">Mafla lupaa käyttää esteettömyysoikeutta vastuullisesti. Mafla ei kerää tai jaa mitään tietoja.</string>
+    <string name="welcome_to_olauncher_settings">Tervetuloa asetuksiin!</string>
+    <string name="keyboard_message">Hei, näppäimistö on nopein tapa löytää ja avata sovelluksia Maflaissa. Voisitko pitää sen päällä vielä muutaman päivän ja päättää sitten?
+        \n\nValinta on aina sinun.</string>
+    <string name="wallpaper_message">Mafla tarjoaa kauniita uusia taustakuvia päivittäin. Anna aloitusnäytöllesi uusi ilme joka päivä, ilmaiseksi!
+        \n\nHaluatko kokeilla?</string>
+    <string name="accessibility_service_description">Esteettömyysoikeus vaaditaan Lukitse kaksoisnapautuksella -eleen käyttöönottoon. Mitään Maflain tämän palvelun kautta hankkimaa tietoa ei lähetetä laitteestasi pois.</string>
+    <string name="please_set_olauncher_as_default_first">Aseta ensin Mafla oletukseksi</string>
+    <string name="hidden_apps_message">Huomio: Napauta \'Mafla\' tämän asetussivun yläreunassa löytääksesi piilotetut sovelluksesi.</string>
+    <string name="accessibility_disclosure">Mafla käyttää Accessibility Service API:a vain yhteen ominaisuuteen: Lukitse kaksoisnapautuksella. Sen avulla Mafla voi lukita näytön, kun napautat aloitusnäyttöä kahdesti.\n\nPalvelu näkee vain Maflain sisällä tehdyt napautukset ja käyttää niitä vain näytön lukitsemiseen. Se ei katso muita sovelluksia eikä mitään, mitä kirjoitat.\n\nMitään tietoja ei kerätä, tallenneta eikä jaeta. Mikään ei poistu laitteeltasi.\n\nNapauta Hyväksy ja ota sitten Mafla käyttöön laitteesi Esteettömyys-asetuksista.</string>
+    <string name="launcher_failed_to_lock_device">Mafla ei pystynyt lukitsemaan laitetta.\nTarkista sovelluksen asetukset.</string>
+    <string name="olauncher_is_not_default_launcher">Mafla ei ole oletuksena. Taustakuvan päivitys epäonnistuu.</string>
+</resources>

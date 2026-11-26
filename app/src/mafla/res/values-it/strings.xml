@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">Imposta prima Mafla come predefinito</string>
+    <string name="admin_permission_message">Mafla si impegna a usare l\'autorizzazione di accessibilità in modo responsabile. Mafla non raccoglie né condivide alcun dato.</string>
+    <string name="welcome_to_olauncher_settings">Benvenuto nelle impostazioni!</string>
+    <string name="keyboard_message">Ciao, la tastiera è il modo più veloce per trovare e avviare le app in Mafla. Possiamo chiederti di tenerla attiva ancora per qualche giorno e poi decidere?\n\nLa scelta è sempre tua.</string>
+    <string name="wallpaper_message">Mafla offre bellissimi sfondi nuovi ogni giorno. Dai un aspetto fresco alla tua schermata principale ogni giorno, gratuitamente!
+        \n\nVuoi provarlo?</string>
+    <string name="accessibility_service_description">L\'autorizzazione di accessibilità è necessaria per abilitare il gesto Doppio tocco per bloccare. Qualsiasi dato acquisito da Mafla tramite questo servizio non lascerà il tuo dispositivo.</string>
+    <string name="please_set_olauncher_as_default_first">Imposta prima Mafla come launcher predefinito</string>
+    <string name="hidden_apps_message">Nota: tocca \'Mafla\' nella parte superiore di questa pagina Impostazioni per trovare le tue app nascoste.</string>
+    <string name="accessibility_disclosure">Mafla usa l\'API Accessibility Service per una sola funzionalità: Tocca due volte per bloccare. Permette a Mafla di bloccare lo schermo quando tocchi due volte la schermata Home.\n\nIl servizio vede solo i tocchi all\'interno di Mafla e li usa solo per bloccare lo schermo. Non guarda le altre app né ciò che digiti.\n\nNessun dato viene raccolto, memorizzato o condiviso. Nulla lascia il tuo dispositivo.\n\nTocca Accetta, poi attiva Mafla nelle impostazioni di Accessibilità del dispositivo.</string>
+    <string name="launcher_failed_to_lock_device">Mafla non è riuscito a bloccare il dispositivo.\nControlla le impostazioni dell\'app.</string>
+    <string name="olauncher_is_not_default_launcher">Mafla non è il programma di avvio predefinito.\nL\'aggiornamento giornaliero dello sfondo potrebbe non riuscire.</string>
+</resources>

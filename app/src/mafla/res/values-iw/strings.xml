@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">הגדר תחילה את Mafla כברירת מחדל</string>
+    <string name="admin_permission_message">יישום Mafla מתחייב להשתמש בהרשאת הנגישות באופן אחראי. יישום Mafla אינו אוסף או משתף נתונים כלל.</string>
+    <string name="welcome_to_olauncher_settings">ברוכים הבאים להגדרות!</string>
+    <string name="keyboard_message">היי, המקלדת היא הדרך המהירה ביותר למצוא ולפתוח יישומים ב־Mafla. האם נוכל לבקש מכם להשאיר את ההגדרה הזאת פעילה עוד כמה ימים ואז להחליט?\n\nהבחירה תמיד שלכם.</string>
+    <string name="wallpaper_message">Mafla מציע טפטים חדשים ויפים מדי יום. תנו למסך הבית שלכם מראה חדש ורענן בכל יום, בחינם!\n\nרוצים לנסות?</string>
+    <string name="accessibility_service_description">הרשאת הנגישות נחוצה להפעלת המחווה של נעילה בהקשה כפולה. כל הנתונים שייאספו על ידי Mafla דרך שירות זה לא יעזבו את המכשיר שלכם.</string>
+    <string name="please_set_olauncher_as_default_first">ראשית, נא להגדיר את Mafla בתור ברירת המחדל למסך בית.</string>
+    <string name="hidden_apps_message">הערה: כדי להגיע ליישומים המוסתרים, יש ללחוץ על הכיתוב \'Mafla\' שנמצא בראש עמוד ההגדרות.</string>
+    <string name="accessibility_disclosure">האפליקציה Mafla משתמשת ב-Accessibility Service API לתכונה אחת בלבד: לחיצה כפולה לנעילת המסך. התכונה מאפשרת ל-Mafla לנעול את המסך כשמקישים פעמיים על מסך הבית.\n\nהשירות רואה רק הקשות בתוך Mafla, ומשתמש בהן רק כדי לנעול את המסך. הוא לא מסתכל על אפליקציות אחרות או על מה שמקלידים.\n\nשום מידע לא נאסף, נשמר או משותף. שום דבר לא יוצא מהמכשיר.\n\nיש להקיש על \"הסכמה\" ואז להפעיל את Mafla בהגדרות הנגישות של המכשיר.</string>
+    <string name="launcher_failed_to_lock_device">ל־Mafla אין אפשרות לנעול את המסך.\nנא לבדוק את הגדרות היישום.</string>
+    <string name="olauncher_is_not_default_launcher">יישום Mafla לא מוגדר בתור ברירת מחדל.\nייתכן שעדכון הרקע היומי לא יצליח.</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">Définissez d\'abord Mafla par défaut</string>
+    <string name="admin_permission_message">Mafla promet d\'utiliser l\'autorisation d\'accessibilité de manière responsable. Mafla ne collecte ni ne partage aucune donnée.</string>
+    <string name="welcome_to_olauncher_settings">Bienvenue dans les paramètres !</string>
+    <string name="keyboard_message">Bonjour, le clavier est le moyen le plus rapide de trouver et de lancer des applications dans Mafla. Pouvons-nous vous demander de le laisser activé quelques jours de plus avant de décider ?\n\nLe choix vous appartient toujours.</string>
+    <string name="wallpaper_message">Mafla propose chaque jour de superbes nouveaux fonds d\'écran. Donnez un nouveau look à votre écran d\'accueil chaque jour, gratuitement !\n\nVoulez-vous essayer ?</string>
+    <string name="accessibility_service_description">L\'autorisation d\'accessibilité est requise pour activer le geste Double appui pour verrouiller. Les données obtenues par Mafla via ce service ne quitteront pas votre appareil.</string>
+    <string name="please_set_olauncher_as_default_first">Veuillez d\'abord définir Mafla comme lanceur par défaut.</string>
+    <string name="hidden_apps_message">Remarque : Appuyez sur \'Mafla\' en haut de cette page Paramètres pour trouver vos applications cachées.</string>
+    <string name="accessibility_disclosure">Mafla utilise l\'API Accessibility Service pour une seule fonctionnalité : Appuyer deux fois pour verrouiller. Elle permet à Mafla de verrouiller votre écran lorsque vous appuyez deux fois sur l\'écran d\'accueil.\n\nLe service voit uniquement les appuis effectués dans Mafla et ne s\'en sert que pour verrouiller votre écran. Il ne regarde ni les autres applications ni ce que vous saisissez.\n\nAucune donnée n\'est collectée, stockée ou partagée. Rien ne quitte votre appareil.\n\nAppuyez sur Accepter, puis activez Mafla dans les paramètres d\'Accessibilité de votre appareil.</string>
+    <string name="launcher_failed_to_lock_device">Mafla n\'a pas réussi à verrouiller l\'appareil.\nVeuillez vérifier les paramètres de votre application.</string>
+    <string name="olauncher_is_not_default_launcher">Mafla n\'est pas le lanceur par défaut.\nLa mise à jour du fond d\'écran échouera.</string>
+</resources>

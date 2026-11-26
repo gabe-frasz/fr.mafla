@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">Najpierw ustaw Mafla jako domyślny</string>
+    <string name="olauncher_is_not_default_launcher">Mafla nie jest domyślnym programem uruchamiającym. Codzienna aktualizacja tapety może się nie powieść.</string>
+    <string name="hidden_apps_message">Uwaga: Stuknij w „Mafla” u góry tej strony ustawień, aby znaleźć ukryte aplikacje.</string>
+    <string name="accessibility_disclosure">Mafla używa Accessibility Service API tylko do jednej funkcji: Dotknij dwukrotnie, aby zablokować. Pozwala ona Maflaowi zablokować ekran, gdy dwukrotnie dotkniesz ekranu głównego.\n\nUsługa widzi tylko dotknięcia wewnątrz Maflaa i używa ich wyłącznie do zablokowania ekranu. Nie patrzy na inne aplikacje ani na nic, co wpisujesz.\n\nŻadne dane nie są zbierane, przechowywane ani udostępniane. Nic nie opuszcza Twojego urządzenia.\n\nDotknij Akceptuj, a następnie włącz Mafla w ustawieniach Ułatwień dostępu na urządzeniu.</string>
+    <string name="launcher_failed_to_lock_device">Maflaowi nie udało się zablokować urządzenia. Sprawdź ustawienia aplikacji.</string>
+    <string name="admin_permission_message">Mafla obiecuje odpowiedzialnie korzystać z uprawnienia ułatwień dostępu. Mafla nie gromadzi ani nie udostępnia żadnych danych.</string>
+    <string name="welcome_to_olauncher_settings">Witamy w ustawieniach!</string>
+    <string name="keyboard_message">Cześć, klawiatura to najszybszy sposób znajdowania i uruchamiania aplikacji w Mafla. Czy możemy poprosić o pozostawienie tego włączonego jeszcze przez kilka dni, a następnie podjęcie decyzji?\n\nWybór zawsze należy do Ciebie.</string>
+    <string name="wallpaper_message">Mafla oferuje piękne nowe tapety codziennie. Nadaj swojemu ekranowi głównemu świeży wygląd każdego dnia, za darmo!
+        \n\nChcesz spróbować?</string>
+    <string name="accessibility_service_description">Uprawnienie ułatwień dostępu jest wymagane, aby włączyć gest podwójnego dotknięcia do zablokowania. Żadne dane pozyskane przez Mafla za pośrednictwem tej usługi nie opuszczą Twojego urządzenia.</string>
+    <string name="please_set_olauncher_as_default_first">Najpierw ustaw Mafla jako domyślny program uruchamiający</string>
+</resources>

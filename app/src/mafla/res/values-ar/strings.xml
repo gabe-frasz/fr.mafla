@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">عيّن Mafla كمشغل افتراضي أولاً</string>
+    <string name="olauncher_is_not_default_launcher">Mafla ليس المشغل الافتراضي. قد يفشل التحديث اليومي للخلفية.</string>
+    <string name="hidden_apps_message">ملاحظة: اضغط على \'Mafla\' أعلى صفحة الإعدادات هذه للعثور على تطبيقاتك المخفية.</string>
+    <string name="accessibility_disclosure">يستخدم Mafla واجهة Accessibility Service API لميزة واحدة فقط: النقر المزدوج للقفل. فهي تتيح لـ Mafla قفل الشاشة عند النقر المزدوج على الشاشة الرئيسية.\n\nلا ترى الخدمة سوى النقرات داخل Mafla، ولا تستخدمها إلا لقفل الشاشة. ولا تطّلع على التطبيقات الأخرى أو على أي شيء تكتبه.\n\nلا يتم جمع أي بيانات أو تخزينها أو مشاركتها. لا يغادر أي شيء جهازك.\n\nانقر على «قبول»، ثم شغّل Mafla في إعدادات «إمكانية الوصول» على جهازك.</string>
+    <string name="launcher_failed_to_lock_device">فشل Mafla في قفل الجهاز.\nيرجى التحقق من إعدادات التطبيق.</string>
+    <string name="admin_permission_message">يعد Mafla باستخدام إذن إمكانية الوصول بشكل مسؤول. لا يقوم Mafla بجمع أو مشاركة أي بيانات.</string>
+    <string name="welcome_to_olauncher_settings">مرحبًا بك في الإعدادات!</string>
+    <string name="keyboard_message">مرحبًا، لوحة المفاتيح هي أسرع طريقة للعثور على التطبيقات وتشغيلها في Mafla. هل يمكننا أن نطلب منك إبقاء هذا الخيار مفعّلًا لبضعة أيام أخرى ثم اتخاذ القرار؟\n\nالاختيار دائمًا لك.</string>
+    <string name="wallpaper_message">يقدم Mafla خلفيات جميلة جديدة يوميًا. امنح شاشتك الرئيسية مظهرًا جديدًا كل يوم، مجانًا!
+        \n\nهل ترغب في تجربته؟</string>
+    <string name="accessibility_service_description">إذن إمكانية الوصول مطلوب لتفعيل إيماءة النقر المزدوج للقفل. أي بيانات يحصل عليها Mafla عبر هذه الخدمة لن تغادر جهازك.</string>
+    <string name="please_set_olauncher_as_default_first">يرجى تعيين Mafla كمشغل افتراضي أولاً</string>
+</resources>

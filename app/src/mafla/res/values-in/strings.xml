@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">Tetapkan Mafla sebagai default terlebih dahulu</string>
+    <string name="admin_permission_message">Mafla berjanji untuk menggunakan izin aksesibilitas secara bertanggung jawab. Mafla tidak mengumpulkan atau membagikan data apa pun.</string>
+    <string name="welcome_to_olauncher_settings">Selamat datang di pengaturan!</string>
+    <string name="keyboard_message">Hai, keyboard adalah cara tercepat untuk menemukan dan membuka aplikasi di Mafla. Bisakah kami meminta Anda untuk tetap mengaktifkannya selama beberapa hari lagi lalu memutuskan?\n\nPilihan selalu ada di tangan Anda.</string>
+    <string name="wallpaper_message">Mafla menawarkan wallpaper baru yang indah setiap hari. Berikan tampilan baru pada layar utama Anda setiap hari, secara gratis!
+        \n\nIngin mencobanya?</string>
+    <string name="accessibility_service_description">Izin aksesibilitas diperlukan untuk mengaktifkan gerakan ketuk dua kali untuk mengunci. Data apa pun yang diperoleh Mafla melalui layanan ini tidak akan meninggalkan perangkat Anda.</string>
+    <string name="please_set_olauncher_as_default_first">Silakan atur Mafla sebagai peluncur default Anda terlebih dahulu</string>
+    <string name="hidden_apps_message">Catatan: Ketuk \'Mafla\' di bagian atas halaman Pengaturan ini untuk menemukan aplikasi tersembunyi Anda.</string>
+    <string name="accessibility_disclosure">Mafla menggunakan Accessibility Service API hanya untuk satu fitur: Ketuk dua kali untuk mengunci. Fitur ini memungkinkan Mafla mengunci layar Anda saat Anda mengetuk dua kali layar utama.\n\nLayanan ini hanya melihat ketukan di dalam Mafla, dan hanya menggunakannya untuk mengunci layar Anda. Layanan ini tidak melihat aplikasi lain atau apa pun yang Anda ketik.\n\nTidak ada data yang dikumpulkan, disimpan, atau dibagikan. Tidak ada yang keluar dari perangkat Anda.\n\nKetuk Terima, lalu aktifkan Mafla di setelan Aksesibilitas perangkat Anda.</string>
+    <string name="launcher_failed_to_lock_device">Mafla gagal mengunci perangkat.\nSilakan periksa pengaturan aplikasi Anda.</string>
+    <string name="olauncher_is_not_default_launcher">Mafla bukan peluncur default.\nPembaruan wallpaper harian mungkin gagal.</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">Prvo postavite Mafla kao zadani</string>
+    <string name="admin_permission_message">Mafla obećava da će odgovorno koristiti dozvolu pristupačnosti. Mafla ne prikuplja niti dijeli nikakve podatke.</string>
+    <string name="welcome_to_olauncher_settings">Dobrodošli u postavke!</string>
+    <string name="keyboard_message">Bok, tipkovnica je najbrži način za pronalaženje i pokretanje aplikacija u Maflau. Možemo li vas zamoliti da to zadržite uključeno još nekoliko dana, a zatim odlučite?
+        \n\nIzbor je uvijek vaš.</string>
+    <string name="wallpaper_message">Mafla nudi predivne nove pozadine svaki dan. Daj svom početnom ekranu svjež izgled svaki dan, besplatno!
+        \n\nŽeliš li isprobati?</string>
+    <string name="accessibility_service_description">Dozvola pristupačnosti potrebna je za omogućavanje geste dvostrukog dodira za zaključavanje. Nikakvi podaci koje Mafla prikupi putem ove usluge neće napustiti vaš uređaj.</string>
+    <string name="please_set_olauncher_as_default_first">Prvo postavite Mafla kao zadani pokretač</string>
+    <string name="hidden_apps_message">Napomena: Dodirnite \'Mafla\' na vrhu ove stranice postavki da biste pronašli svoje skrivene aplikacije.</string>
+    <string name="accessibility_disclosure">Mafla koristi Accessibility Service API samo za jednu značajku: Dvostruki dodir za zaključavanje. Ona omogućuje Maflau da zaključa zaslon kada dvaput dodirnete početni zaslon.\n\nUsluga vidi samo dodire unutar Maflaa i koristi ih samo za zaključavanje zaslona. Ne gleda druge aplikacije ni bilo što što upisujete.\n\nNikakvi podaci se ne prikupljaju, ne pohranjuju niti dijele. Ništa ne napušta vaš uređaj.\n\nDodirnite Prihvati, a zatim uključite Mafla u postavkama Pristupačnosti na uređaju.</string>
+    <string name="launcher_failed_to_lock_device">Mafla nije uspio zaključati uređaj.\nMolimo provjerite postavke aplikacije.</string>
+    <string name="olauncher_is_not_default_launcher">Mafla nije zadani. Ažuriranje pozadine neće uspjeti.</string>
+</resources>

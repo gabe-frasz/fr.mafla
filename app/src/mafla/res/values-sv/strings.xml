@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por scripts/rebrand_strings.py. Não edite à mão. -->
+<resources>
+    <string name="set_as_default_launcher_first">Ange Mafla som förvald först</string>
+    <string name="admin_permission_message">Mafla lovar att använda tillgänglighetsbehörigheten ansvarsfullt. Mafla varken samlar in eller delar några data.</string>
+    <string name="welcome_to_olauncher_settings">Välkommen till inställningarna!</string>
+    <string name="keyboard_message">Hejsan, tangentbordet är det snabbaste sättet att hitta och starta appar i Mafla. Får vi be dig att behålla denna På i några dagar till innan du bestämmer dig?
+        \n\nValet är alltid ditt.</string>
+    <string name="wallpaper_message">Mafla erbjuder vackra nya bakgrundsbilder varje dag. Ge din hemskärm ett fräscht utseende varje dag, gratis!
+        \n\nVill du prova?</string>
+    <string name="accessibility_service_description">Tillgänglighetsbehörigheten krävs för att aktivera gesten dubbeltryck för att låsa. Inga data som Mafla får via denna tjänst lämnar din enhet.</string>
+    <string name="please_set_olauncher_as_default_first">Vänligen ange Mafla som förvald först</string>
+    <string name="hidden_apps_message">Observera: Tryck på \'Mafla\' högst upp på denna Inställningar-sida för att hitta dina dolda appar.</string>
+    <string name="accessibility_disclosure">Mafla använder Accessibility Service API för endast en funktion: Dubbeltryck för att låsa. Den låter Mafla låsa skärmen när du dubbeltrycker på startskärmen.\n\nTjänsten ser bara tryck inuti Mafla och använder dem bara för att låsa skärmen. Den tittar inte på andra appar eller på något du skriver.\n\nIngen data samlas in, lagras eller delas. Inget lämnar din enhet.\n\nTryck på Godkänn och aktivera sedan Mafla under Tillgänglighet i enhetens inställningar.</string>
+    <string name="launcher_failed_to_lock_device">Mafla lyckades inte låsa enheten.\nVänligen kontrollera dina appinställningar.</string>
+    <string name="olauncher_is_not_default_launcher">Mafla är inte förvald. Uppdatering av bakgrundsbild kommer att misslyckas.</string>
+</resources>
