@@ -28,4 +28,21 @@
     <color name="blackInverseTrans80">#CCFFFFFF</color>
     <color name="blackInverseTrans90">#E6FFFFFF</color>
 
+    <!-- Mafla palette (contrast measured against the matching ground) -->
+    <color name="ground_dark">#0E0E0F</color>
+    <color name="ink_dark">#EDEDEC</color>
+    <color name="ink_dark_secondary">#9A9A9D</color>
+    <color name="ink_dark_tertiary">#7C7C80</color>
+    <color name="ink_dark_trans50">#80EDEDEC</color>
+    <color name="ink_dark_trans80">#CCEDEDEC</color>
+    <color name="ink_dark_line">#2A2A2C</color>
+
+    <color name="ground_light">#F7F7F5</color>
+    <color name="ink_light">#161616</color>
+    <color name="ink_light_secondary">#5F5F62</color>
+    <color name="ink_light_tertiary">#6B6B6E</color>
+    <color name="ink_light_trans50">#80161616</color>
+    <color name="ink_light_trans80">#CC161616</color>
+    <color name="ink_light_line">#E4E4E1</color>
+
 </resources>

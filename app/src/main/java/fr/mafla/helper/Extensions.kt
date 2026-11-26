@@ -24,6 +24,7 @@ import androidx.annotation.RequiresApi
 import fr.mafla.BuildConfig
 import fr.mafla.R
 import fr.mafla.data.Constants
+import fr.mafla.data.Prefs
 import java.util.Calendar
 import java.util.Locale
 
@@ -160,6 +161,10 @@ fun Context.isSystemAnimationsDisabled(): Boolean {
         false
     }
 }
+
+/** Mafla's own motion runs only when the user, the system and the display all allow it. */
+fun Context.isMotionEnabled(): Boolean =
+    Prefs(this).animationsEnabled && !isSystemAnimationsDisabled() && !isEinkDisplay()
 
 fun Context.isPackageInstalled(packageName: String, userHandle: UserHandle = android.os.Process.myUserHandle()): Boolean {
     val launcher = getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps

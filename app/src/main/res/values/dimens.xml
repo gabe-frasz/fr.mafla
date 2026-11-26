@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="alphabet_recycler_margin_bottom">16dp</dimen>
-    <dimen name="alphabet_recycler_margin_end">10dp</dimen>
-    <dimen name="alphabet_recycler_margin_start">320dp</dimen>
+    <!-- Mafla type scale (see the design foundations). The text size setting scales all of them. -->
+    <dimen name="time_size">76sp</dimen>
+    <dimen name="date_size">15sp</dimen>
+    <dimen name="text_home_app">24sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_search">22sp</dimen>
+    <dimen name="text_title">28sp</dimen>
+    <dimen name="text_small">17sp</dimen>
+    <dimen name="text_value">15sp</dimen>
+    <dimen name="text_tab">15sp</dimen>
+    <dimen name="text_caption">13sp</dimen>
+    <dimen name="text_index">12sp</dimen>
+    <dimen name="text_index_bubble">96sp</dimen>
+
+    <!-- Spacing, on a 4dp grid -->
+    <dimen name="screen_margin">28dp</dimen>
+    <dimen name="list_text_start">64dp</dimen>
+    <dimen name="index_rail_width">36dp</dimen>
+    <dimen name="index_rail_row">24dp</dimen>
+    <dimen name="app_padding_vertical">12dp</dimen>
+    <dimen name="home_app_padding_vertical">12dp</dimen>
+    <dimen name="settings_row_height">52dp</dimen>
+    <dimen name="tab_height">44dp</dimen>
+
     <dimen name="dialog_blur_behind_radius">4dp</dimen>
 </resources>

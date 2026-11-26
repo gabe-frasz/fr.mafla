@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Light theme. The dark one lives in values-night/styles.xml and only swaps colors. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
@@ -22,20 +23,20 @@
 
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <!--        <item name="android:enforceStatusBarContrast">false</item>-->
         <item name="android:enforceNavigationBarContrast" tools:targetApi="q">false</item>
-        <!--        <item name="android:windowTranslucentStatus">false</item>-->
-        <!--        <item name="android:windowTranslucentNavigation">true</item>-->
 
-        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimary">@color/ink_light</item>
         <item name="colorPrimaryDark">@android:color/darker_gray</item>
-        <item name="colorAccent">@color/black</item>
+        <item name="colorAccent">@color/ink_light</item>
 
-        <item name="primaryColor">@color/black</item>
+        <item name="primaryColor">@color/ink_light</item>
+        <item name="secondaryColor">@color/ink_light_secondary</item>
+        <item name="tertiaryColor">@color/ink_light_tertiary</item>
+        <item name="lineColor">@color/ink_light_line</item>
         <item name="primaryInverseColor">@color/blackInverse</item>
-        <item name="primaryTextShadowColor">@color/blackInverseTrans50</item>
-        <item name="primaryColorTrans50">@color/blackTrans50</item>
-        <item name="primaryColorTrans80">@color/blackTrans80</item>
+        <item name="primaryTextShadowColor">@color/blackInverseTrans25</item>
+        <item name="primaryColorTrans50">@color/ink_light_trans50</item>
+        <item name="primaryColorTrans80">@color/ink_light_trans80</item>
         <item name="primaryColorInverseTrans50">@color/blackInverseTrans50</item>
         <item name="primaryColorInverseTrans80">@color/blackInverseTrans80</item>
         <item name="primaryColorInverseTrans90">@color/blackInverseTrans90</item>
@@ -43,7 +44,8 @@
         <item name="primaryShadeDarkColor">@color/blackInverseTrans25</item>
         <item name="dialogShadeColor">@color/blackInverseTrans50</item>
 
-        <item name="mainFontFamily">sans-serif-light</item>
+        <item name="mainFontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
 
         <!-- Popup menus and dialogs used by settings -->
         <item name="popupMenuStyle">@style/OlPopupMenu</item>
@@ -55,7 +57,8 @@
 
     <!-- Applied over AppTheme when bold font is enabled -->
     <style name="BoldFontOverlay">
-        <item name="mainFontFamily">sans-serif</item>
+        <item name="mainFontFamily">@font/inter_medium</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
     </style>
 
     <style name="WindowAnimationTransition">
@@ -65,27 +68,56 @@
 
     <style name="AppSearchText" parent="Widget.AppCompat.SearchView">
         <item name="android:maxLength">200</item>
-        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textSize">@dimen/text_search</item>
+        <item name="android:letterSpacing">-0.01</item>
         <item name="android:textColor">?attr/primaryColor</item>
         <item name="android:editTextColor">?attr/primaryColor</item>
-        <item name="android:textColorHint">?attr/primaryColor</item>
+        <item name="android:textColorHint">?attr/secondaryColor</item>
         <item name="android:fontFamily">?attr/mainFontFamily</item>
         <item name="android:inputType">textCapSentences|textNoSuggestions</item>
         <item name="android:cursorVisible">false</item>
     </style>
 
+    <!-- Text. Sizes follow the Mafla type scale; see dimens.xml. -->
+
     <style name="TextDefault" parent="@android:style/TextAppearance.Large">
+        <item name="android:fontFamily">?attr/mainFontFamily</item>
         <item name="android:textColor">@drawable/text_colors_default</item>
-        <item name="android:textColorHint">?attr/primaryColorTrans80</item>
+        <item name="android:textColorHint">?attr/secondaryColor</item>
         <item name="android:shadowColor">?attr/primaryTextShadowColor</item>
         <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">2</item>
-        <item name="android:shadowRadius">4</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">3</item>
     </style>
 
+    <!-- App name in the app list -->
     <style name="TextLarge" parent="TextDefault">
-        <item name="android:fontFamily">?attr/mainFontFamily</item>
         <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
+    <!-- App name on the home screen -->
+    <style name="TextHomeApp" parent="TextDefault">
+        <item name="android:textSize">@dimen/text_home_app</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <style name="TextClock" parent="TextDefault">
+        <item name="android:fontFamily">@font/inter_extralight</item>
+        <item name="android:textSize">@dimen/time_size</item>
+        <item name="android:letterSpacing">-0.045</item>
+        <item name="android:fontFeatureSettings">tnum</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextDate" parent="TextDefault">
+        <item name="android:textSize">@dimen/date_size</item>
+        <item name="android:textColor">?attr/secondaryColor</item>
+    </style>
+
+    <style name="TextCaption" parent="TextDefault">
+        <item name="android:textSize">@dimen/text_caption</item>
+        <item name="android:textColor">?attr/tertiaryColor</item>
+        <item name="android:fontFeatureSettings">tnum</item>
     </style>
 
     <style name="TextMedium" parent="TextDefault">
@@ -96,12 +128,85 @@
         <item name="android:textSize">@dimen/text_small</item>
     </style>
 
-    <style name="TextSmallBold" parent="TextSmall">
-        <item name="android:textStyle">bold</item>
+    <!-- Values on the right of a settings row and other secondary actions -->
+    <style name="TextSmallBold" parent="TextDefault">
+        <item name="android:textSize">@dimen/text_value</item>
+        <item name="android:textColor">?attr/secondaryColor</item>
+        <item name="android:fontFeatureSettings">tnum</item>
+    </style>
+
+    <!-- Dialog actions and steppers -->
+    <style name="TextAction" parent="TextDefault">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@drawable/text_colors_default</item>
     </style>
 
     <style name="TextSmallLight" parent="TextSmall">
         <item name="android:textColor">@drawable/text_colors_light</item>
+    </style>
+
+    <style name="TextScreenTitle" parent="TextDefault">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="TextSectionHeader" parent="TextDefault">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">@dimen/text_index</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">?attr/tertiaryColor</item>
+    </style>
+
+    <!-- Group tab above the app list -->
+    <style name="TextGroupTab" parent="TextDefault">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">@dimen/text_tab</item>
+        <item name="android:textColor">?attr/secondaryColor</item>
+    </style>
+
+    <!-- Section letter in the app list gutter -->
+    <style name="TextIndexLetter" parent="TextDefault">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">@dimen/text_index</item>
+        <item name="android:textColor">?attr/tertiaryColor</item>
+    </style>
+
+    <!-- A settings row: label on the start, value on the end, 52dp tall -->
+    <style name="SettingsRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/settings_row_height</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="SettingsLabel" parent="TextSmall">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:paddingVertical">12dp</item>
+        <item name="android:textColor">?attr/primaryColor</item>
+    </style>
+
+    <style name="SettingsValue" parent="TextSmallBold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/settings_row_height</item>
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SettingsSection">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">28dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 
     <!-- Popup menu anchored to a settings row -->
@@ -116,8 +221,8 @@
 
     <style name="OlPopupMenuText" parent="TextAppearance.AppCompat.Widget.PopupMenu.Large">
         <item name="android:textColor">?attr/primaryColor</item>
-        <item name="android:textSize">@dimen/text_small</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_value</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
     </style>
 
     <!-- Alert dialogs: the window only; content comes from layout/dialog_base.xml -->

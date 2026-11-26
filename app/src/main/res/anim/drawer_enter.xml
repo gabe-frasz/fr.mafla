@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- App list opening: rises 4% (about 32dp on a phone) while fading in -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/motion_enter"
+    android:interpolator="@interpolator/emphasized_decelerate"
+    android:shareInterpolator="true">
+    <alpha
+        android:fromAlpha="0"
+        android:toAlpha="1" />
+    <translate
+        android:fromYDelta="4%"
+        android:toYDelta="0" />
+</set>

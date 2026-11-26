@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One group tab above the app list; the indicator animates in when selected -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="24dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/tabLabel"
+        style="@style/TextGroupTab"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        tools:text="Trabalho" />
+
+    <View
+        android:id="@+id/tabIndicator"
+        android:layout_width="16dp"
+        android:layout_height="2dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="6dp"
+        android:alpha="0"
+        android:background="@drawable/tab_indicator"
+        android:scaleX="0.3"
+        android:transformPivotX="0dp" />
+
+</FrameLayout>

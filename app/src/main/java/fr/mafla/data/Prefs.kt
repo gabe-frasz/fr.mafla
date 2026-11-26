@@ -33,6 +33,13 @@ class Prefs(context: Context) {
     private val SCREEN_TIME_LAST_UPDATED = "SCREEN_TIME_LAST_UPDATED"
     private val LAUNCHER_RESTART_TIMESTAMP = "LAUNCHER_RECREATE_TIMESTAMP"
     private val SHOWN_ON_DAY_OF_YEAR = "SHOWN_ON_DAY_OF_YEAR"
+    private val APP_GROUPS = "APP_GROUPS"
+    private val ALPHABET_INDEX = "ALPHABET_INDEX"
+    private val GROUP_SWIPE = "GROUP_SWIPE"
+    private val REMEMBER_LAST_GROUP = "REMEMBER_LAST_GROUP"
+    private val LAST_GROUP_ID = "LAST_GROUP_ID"
+    private val SHOW_ALL_TAB = "SHOW_ALL_TAB"
+    private val ANIMATIONS_ENABLED = "ANIMATIONS_ENABLED"
     // Home button for recents feature disabled
     // private val HOME_BUTTON_SHOW_RECENTS = "HOME_BUTTON_SHOW_RECENTS"
 
@@ -203,6 +210,34 @@ class Prefs(context: Context) {
     // var homeButtonShowRecents: Boolean
     //     get() = prefs.getBoolean(HOME_BUTTON_SHOW_RECENTS, false)
     //     set(value) = prefs.edit { putBoolean(HOME_BUTTON_SHOW_RECENTS, value).apply() }
+
+    var appGroups: List<AppGroup>
+        get() = AppGroups.decode(prefs.getString(APP_GROUPS, ""))
+        set(value) = prefs.edit { putString(APP_GROUPS, AppGroups.encode(value)) }
+
+    var alphabetIndex: Boolean
+        get() = prefs.getBoolean(ALPHABET_INDEX, true)
+        set(value) = prefs.edit { putBoolean(ALPHABET_INDEX, value) }
+
+    var groupSwipe: Boolean
+        get() = prefs.getBoolean(GROUP_SWIPE, true)
+        set(value) = prefs.edit { putBoolean(GROUP_SWIPE, value) }
+
+    var rememberLastGroup: Boolean
+        get() = prefs.getBoolean(REMEMBER_LAST_GROUP, false)
+        set(value) = prefs.edit { putBoolean(REMEMBER_LAST_GROUP, value) }
+
+    var lastGroupId: String
+        get() = prefs.getString(LAST_GROUP_ID, "").toString()
+        set(value) = prefs.edit { putString(LAST_GROUP_ID, value) }
+
+    var showAllTab: Boolean
+        get() = prefs.getBoolean(SHOW_ALL_TAB, true)
+        set(value) = prefs.edit { putBoolean(SHOW_ALL_TAB, value) }
+
+    var animationsEnabled: Boolean
+        get() = prefs.getBoolean(ANIMATIONS_ENABLED, true)
+        set(value) = prefs.edit { putBoolean(ANIMATIONS_ENABLED, value) }
 
     var hiddenApps: MutableSet<String>
         get() = prefs.getStringSet(HIDDEN_APPS, mutableSetOf()) as MutableSet<String>

@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/textSizeMinus"
-        style="@style/TextSmallBold"
+        style="@style/TextAction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -25,7 +25,7 @@
 
     <TextView
         android:id="@+id/textSizeCurrent"
-        style="@style/TextSmallBold"
+        style="@style/TextAction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/textSizePlus"
-        style="@style/TextSmallBold"
+        style="@style/TextAction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

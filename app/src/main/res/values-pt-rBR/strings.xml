@@ -95,4 +95,46 @@
     <string name="unable_to_open_shortcut">Não é possível abrir o atalho</string>
     <string name="unable_to_open_app_info">Não é possível abrir as informações do aplicativo</string>
     <string name="bold_font">Fonte em negrito</string>
-</resources><!-- Portuguese -->
+
+    <!-- Redesign: settings, groups and the alphabetical index -->
+    <string name="settings">Configurações</string>
+    <string name="back">Voltar</string>
+    <string name="app_list">Lista de apps</string>
+    <string name="app_info">Informações do app</string>
+    <string name="search_hint">Buscar</string>
+    <string name="search_in_group">Buscar em %1$s</string>
+    <string name="search_apps">Buscar apps</string>
+    <string name="screen_time_today">%1$s de tela hoje</string>
+    <string name="alphabet_index">Índice alfabético</string>
+    <string name="go_to_letter">Ir para %1$s</string>
+    <string name="animations">Animações</string>
+    <string name="groups">Grupos</string>
+    <string name="all_apps_tab">Todos</string>
+    <string name="new_group">Novo grupo</string>
+    <string name="new_group_ellipsis">Novo grupo…</string>
+    <string name="edit_group">Editar grupo</string>
+    <string name="group_name">Nome do grupo</string>
+    <string name="groups_description">Aparecem como abas na lista de apps. Um app pode estar em vários grupos.</string>
+    <string name="no_groups_yet">Nenhum grupo ainda.</string>
+    <string name="behavior">Comportamento</string>
+    <string name="swipe_to_switch">Deslizar para trocar</string>
+    <string name="open_last_group">Abrir no último grupo</string>
+    <string name="show_all_tab">Mostrar aba Todos</string>
+    <string name="reorder_hint">Segure ⋮⋮ e arraste para mudar a ordem das abas.</string>
+    <string name="reorder_group">Reordenar %1$s</string>
+    <string name="only_selected">Só selecionados</string>
+    <string name="show_all">Mostrar todos</string>
+    <string name="delete_group">Excluir grupo</string>
+    <string name="delete_group_message">Os apps continuam instalados, só o grupo é apagado.</string>
+    <string name="delete_confirm">Excluir</string>
+    <string name="cancel">Cancelar</string>
+    <plurals name="selected_count">
+        <item quantity="one">%d selecionado</item>
+        <item quantity="other">%d selecionados</item>
+    </plurals>
+    <plurals name="group_app_count">
+        <item quantity="one">%d app</item>
+        <item quantity="other">%d apps</item>
+    </plurals>
+
+</resources>

@@ -20,7 +20,9 @@ import fr.mafla.data.AppModel
 import fr.mafla.data.Constants
 import fr.mafla.databinding.AdapterAppDrawerBinding
 import fr.mafla.databinding.AdapterPrivateSpaceHeaderBinding
+import fr.mafla.helper.AlphabetIndex
 import fr.mafla.helper.appLabelMatches
+import fr.mafla.helper.getColorFromAttr
 import fr.mafla.helper.hideKeyboard
 import fr.mafla.helper.isSystemApp
 import fr.mafla.helper.showKeyboard
@@ -35,11 +37,13 @@ class AppDrawerAdapter(
     private val appRenameListener: (AppModel, String) -> Unit,
     private val privateSpaceToggleListener: () -> Unit = {},
     private val privateSpaceSettingsListener: () -> Unit = {},
+    private val appGroupsListener: ((AppModel, View) -> Unit)? = null,
 ) : ListAdapter<AppModel, RecyclerView.ViewHolder>(DIFF_CALLBACK), Filterable {
 
     companion object {
         const val VIEW_TYPE_APP = 0
         const val VIEW_TYPE_PRIVATE_HEADER = 1
+        private const val PAYLOAD_SECTION = "section"
 
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AppModel>() {
             override fun areItemsTheSame(oldItem: AppModel, newItem: AppModel): Boolean = when {
@@ -69,6 +73,43 @@ class AppDrawerAdapter(
     var appsList: MutableList<AppModel> = mutableListOf()
     var appFilteredList: MutableList<AppModel> = mutableListOf()
 
+    /** Shows the section letter in the gutter. Off while searching. */
+    var indexEnabled = true
+        set(value) {
+            if (field == value) return
+            field = value
+            notifyItemRangeChanged(0, itemCount)
+        }
+    var isSearching = false
+        private set
+    private var currentSection = ""
+
+    /** Called after every list change, with the list now on screen. */
+    var onListChanged: ((List<AppModel>) -> Unit)? = null
+
+    private val showLetters get() = indexEnabled && !isSearching
+
+    /** Highlights the gutter letter of the section now at the top of the list. */
+    fun setCurrentSection(letter: String) {
+        if (letter == currentSection) return
+        currentSection = letter
+        notifyItemRangeChanged(0, itemCount, PAYLOAD_SECTION)
+    }
+
+    private fun sectionLetterAt(position: Int): String {
+        if (!showLetters) return ""
+        val labels = appFilteredList
+        val app = labels.getOrNull(position) ?: return ""
+        if (app is AppModel.PrivateSpaceHeader) return ""
+        val letter = AlphabetIndex.sectionOf(app.appLabel)
+        if (letter.isEmpty()) return ""
+        val previous = labels.getOrNull(position - 1)
+        if (previous != null && previous !is AppModel.PrivateSpaceHeader &&
+            AlphabetIndex.sectionOf(previous.appLabel) == letter
+        ) return ""
+        return letter
+    }
+
     override fun getItemViewType(position: Int): Int {
         return when (appFilteredList.getOrNull(position)) {
             is AppModel.PrivateSpaceHeader -> VIEW_TYPE_PRIVATE_HEADER
@@ -96,6 +137,14 @@ class AppDrawerAdapter(
         }
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.contains(PAYLOAD_SECTION) && holder is ViewHolder) {
+            holder.bindLetter(sectionLetterAt(holder.bindingAdapterPosition), currentSection, showLetters)
+            return
+        }
+        super.onBindViewHolder(holder, position, payloads)
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         try {
             if (appFilteredList.isEmpty() || position == RecyclerView.NO_POSITION) return
@@ -118,8 +167,11 @@ class AppDrawerAdapter(
                     appDeleteListener,
                     appInfoListener,
                     appHideListener,
-                    appRenameListener
-                )
+                    appRenameListener,
+                    appGroupsListener,
+                ).also {
+                    holder.bindLetter(sectionLetterAt(holder.bindingAdapterPosition), currentSection, showLetters)
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -132,6 +184,7 @@ class AppDrawerAdapter(
         return object : Filter() {
             override fun performFiltering(charSearch: CharSequence?): FilterResults {
                 isBangSearch = charSearch?.startsWith("!") ?: false
+                isSearching = !charSearch.isNullOrBlank()
                 autoLaunch = allowAutoLaunch && (charSearch?.startsWith(" ")?.not() ?: true)
 
                 val appFilteredList = (if (charSearch.isNullOrBlank()) appsList
@@ -150,6 +203,7 @@ class AppDrawerAdapter(
                     val items = it as MutableList<AppModel>
                     appFilteredList = items
                     submitList(appFilteredList) {
+                        onListChanged?.invoke(appFilteredList)
                         autoLaunch(constraint?.toString())
                     }
                 }
@@ -193,7 +247,7 @@ class AppDrawerAdapter(
         )
         this.appsList = appsList
         this.appFilteredList = appsList
-        submitList(appsList)
+        submitList(appsList) { onListChanged?.invoke(appFilteredList) }
     }
 
     fun launchFirstInList() {
@@ -229,6 +283,7 @@ class AppDrawerAdapter(
             appInfoListener: (AppModel) -> Unit,
             appHideListener: (AppModel, Int) -> Unit,
             appRenameListener: (AppModel, String) -> Unit,
+            appGroupsListener: ((AppModel, View) -> Unit)?,
         ) = with(binding) {
             appHideLayout.visibility = View.GONE
             renameLayout.visibility = View.GONE
@@ -268,6 +323,7 @@ class AppDrawerAdapter(
                     appHideLayout.visibility = View.VISIBLE
                     // Only allow renaming non hidden apps
                     appRename.isVisible = flag != Constants.FLAG_HIDDEN_APPS
+                    appGroups.isVisible = appGroupsListener != null && flag == Constants.FLAG_LAUNCH_APP
                 }
                 true
             }
@@ -340,6 +396,22 @@ class AppDrawerAdapter(
                 appTitle.visibility = View.VISIBLE
             }
             appHide.setOnClickListener { appHideListener(appModel, bindingAdapterPosition) }
+            appGroups.setOnClickListener { appGroupsListener?.invoke(appModel, appGroups) }
+        }
+
+        fun bindLetter(letter: String, currentSection: String, gutter: Boolean) = with(binding) {
+            appLetter.isVisible = letter.isNotEmpty()
+            appLetter.text = letter
+            appLetter.setTextColor(
+                root.context.getColorFromAttr(
+                    if (letter.isNotEmpty() && letter == currentSection) R.attr.primaryColor else R.attr.tertiaryColor
+                )
+            )
+            val start = root.resources.getDimensionPixelSize(
+                if (gutter) R.dimen.list_text_start else R.dimen.screen_margin
+            )
+            if (appTitle.paddingStart != start)
+                appTitle.setPaddingRelative(start, appTitle.paddingTop, appTitle.paddingEnd, appTitle.paddingBottom)
         }
 
         private fun getAppName(context: Context, appPackage: String, user: UserHandle): String {

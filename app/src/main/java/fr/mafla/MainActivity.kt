@@ -30,7 +30,7 @@ import fr.mafla.helper.hasBeenMinutes
 import fr.mafla.helper.isDefaultLauncher
 import fr.mafla.helper.MaflaDialog
 import fr.mafla.helper.isEinkDisplay
-import fr.mafla.helper.isSystemAnimationsDisabled
+import fr.mafla.helper.isMotionEnabled
 import fr.mafla.helper.isTablet
 import fr.mafla.helper.resetLauncherViaFakeActivity
 import fr.mafla.helper.showLauncherSelector
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(prefs.appTheme)
         super.onCreate(savedInstanceState)
         if (prefs.boldFont) theme.applyStyle(R.style.BoldFontOverlay, true)
-        if (isEinkDisplay() || isSystemAnimationsDisabled()) theme.applyStyle(R.style.NoAnimationOverlay, true)
+        if (!isMotionEnabled()) theme.applyStyle(R.style.NoAnimationOverlay, true)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -276,8 +276,8 @@ class MainActivity : AppCompatActivity() {
         timerJob = lifecycleScope.launch {
             delay(200)
             val themeMismatch =
-                (prefs.appTheme == AppCompatDelegate.MODE_NIGHT_YES && getColorFromAttr(R.attr.primaryColor) != getColor(R.color.white))
-                        || (prefs.appTheme == AppCompatDelegate.MODE_NIGHT_NO && getColorFromAttr(R.attr.primaryColor) != getColor(R.color.black))
+                (prefs.appTheme == AppCompatDelegate.MODE_NIGHT_YES && getColorFromAttr(R.attr.primaryColor) != getColor(R.color.ink_dark))
+                        || (prefs.appTheme == AppCompatDelegate.MODE_NIGHT_NO && getColorFromAttr(R.attr.primaryColor) != getColor(R.color.ink_light))
             // If recreating doesn't fix the theme (e.g. an OEM ROM overriding it), don't recreate in an endless loop (#734)
             if (themeMismatch && prefs.launcherRestartTimestamp.hasBeenMinutes(1))
                 restartLauncherOrCheckTheme(true)

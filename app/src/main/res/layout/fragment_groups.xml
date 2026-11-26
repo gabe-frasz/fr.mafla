@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/primaryShadeDarkColor">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdgeLength="48dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:requiresFadingEdge="vertical"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/screen_margin"
+            android:paddingTop="56dp"
+            android:paddingBottom="32dp">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="-14dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/back"
+                android:scaleType="center"
+                android:src="@drawable/ic_back"
+                app:tint="?attr/secondaryColor" />
+
+            <TextView
+                style="@style/TextScreenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/groups"
+                android:textColor="?attr/primaryColor" />
+
+            <TextView
+                style="@style/TextSmallBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4sp"
+                android:text="@string/groups_description" />
+
+            <TextView
+                android:id="@+id/emptyGroups"
+                style="@style/TextCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/no_groups_yet"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/groupsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_group" />
+
+            <LinearLayout
+                android:id="@+id/addGroup"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_add"
+                    app:tint="?attr/primaryColor" />
+
+                <TextView
+                    style="@style/TextSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/new_group"
+                    android:textColor="?attr/primaryColor" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextSectionHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/behavior" />
+
+            <LinearLayout
+                android:id="@+id/groupSwipeRow"
+                style="@style/SettingsRow">
+
+                <TextView
+                    style="@style/SettingsLabel"
+                    android:text="@string/swipe_to_switch" />
+
+                <TextView
+                    android:id="@+id/groupSwipe"
+                    style="@style/SettingsValue"
+                    tools:text="@string/on" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rememberLastGroupRow"
+                style="@style/SettingsRow">
+
+                <TextView
+                    style="@style/SettingsLabel"
+                    android:text="@string/open_last_group" />
+
+                <TextView
+                    android:id="@+id/rememberLastGroup"
+                    style="@style/SettingsValue"
+                    tools:text="@string/off" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/showAllTabRow"
+                style="@style/SettingsRow">
+
+                <TextView
+                    style="@style/SettingsLabel"
+                    android:text="@string/show_all_tab" />
+
+                <TextView
+                    android:id="@+id/showAllTab"
+                    style="@style/SettingsValue"
+                    tools:text="@string/on" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:minHeight="32dp" />
+
+            <TextView
+                android:id="@+id/reorderHint"
+                style="@style/TextCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reorder_hint" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

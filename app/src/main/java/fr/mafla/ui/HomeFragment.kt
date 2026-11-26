@@ -4,7 +4,6 @@ import android.app.admin.DevicePolicyManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.LauncherApps
-import android.content.res.Configuration
 import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
@@ -13,13 +12,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
-import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.core.view.setPadding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -30,7 +28,6 @@ import fr.mafla.data.Constants
 import fr.mafla.data.Prefs
 import fr.mafla.databinding.FragmentHomeBinding
 import fr.mafla.helper.appUsagePermissionGranted
-import fr.mafla.helper.dpToPx
 import fr.mafla.helper.expandNotificationDrawer
 import fr.mafla.helper.getUserHandleFromString
 import fr.mafla.helper.isPackageInstalled
@@ -67,6 +64,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         } ?: throw Exception("Invalid Activity")
 
         deviceManager = context?.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+
+        // TextClock isn't an AppCompat widget, so set the font in code for Android 7
+        ResourcesCompat.getFont(requireContext(), R.font.inter_extralight)?.let { binding.clock.typeface = it }
 
         initObservers()
         setHomeAlignment(prefs.homeAlignment)
@@ -194,7 +194,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             populateDateTime()
         }
         viewModel.screenTimeValue.observe(viewLifecycleOwner) {
-            it?.let { binding.tvScreenTime.text = it }
+            it?.let { binding.tvScreenTime.text = getString(R.string.screen_time_today, it) }
         }
         // Home button for recents feature disabled
         // viewModel.showRecentApps.observe(viewLifecycleOwner) {
@@ -251,6 +251,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         val verticalGravity = if (prefs.homeBottomAlignment) Gravity.BOTTOM else Gravity.CENTER_VERTICAL
         binding.homeAppsLayout.gravity = horizontalGravity or verticalGravity
         binding.dateTimeLayout.gravity = horizontalGravity
+        binding.headerLayout?.gravity = horizontalGravity
         binding.homeApp1.gravity = horizontalGravity
         binding.homeApp2.gravity = horizontalGravity
         binding.homeApp3.gravity = horizontalGravity
@@ -285,25 +286,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
         viewModel.getTodaysScreenTime()
         binding.tvScreenTime.visibility = View.VISIBLE
-
-        val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-        val horizontalMargin = if (isLandscape) 64.dpToPx() else 10.dpToPx()
-        val marginTop = if (isLandscape) {
-            if (prefs.dateTimeVisibility == Constants.DateTime.DATE_ONLY) 36.dpToPx() else 56.dpToPx()
-        } else {
-            if (prefs.dateTimeVisibility == Constants.DateTime.DATE_ONLY) 45.dpToPx() else 72.dpToPx()
-        }
-        val params = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.WRAP_CONTENT,
-            FrameLayout.LayoutParams.WRAP_CONTENT
-        ).apply {
-            topMargin = marginTop
-            marginStart = horizontalMargin
-            marginEnd = horizontalMargin
-            gravity = if (prefs.homeAlignment == Gravity.END) Gravity.START else Gravity.END
-        }
-        binding.tvScreenTime.layoutParams = params
-        binding.tvScreenTime.setPadding(10.dpToPx())
     }
 
     private fun populateHomeScreen(appCountUpdated: Boolean) {

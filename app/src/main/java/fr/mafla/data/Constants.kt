@@ -5,6 +5,8 @@ object Constants {
     object Key {
         const val FLAG = "flag"
         const val RENAME = "rename"
+        const val GROUP_ID = "groupId"
+        const val PRESELECT_MEMBER = "preselectMember"
     }
 
     object Dialog {

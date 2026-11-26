@@ -2,4 +2,10 @@
 <resources>
     <!-- Dialog fade in/out, shared by the window animation and the blur ramp -->
     <integer name="dialog_anim_duration">250</integer>
+
+    <!-- Motion tokens -->
+    <integer name="motion_enter">400</integer>
+    <integer name="motion_exit">200</integer>
+    <integer name="motion_switch">250</integer>
+    <integer name="motion_fade">200</integer>
 </resources>
