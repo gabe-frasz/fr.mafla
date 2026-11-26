@@ -84,6 +84,20 @@ class AppDrawerAdapter(
         private set
     private var currentSection = ""
 
+    /** Called with true while a row shows its actions (uninstall, rename...), false after. */
+    var onMenuOpenChanged: ((Boolean) -> Unit)? = null
+    private var openMenuHolder: ViewHolder? = null
+    private val menuListener: (ViewHolder, Boolean) -> Unit = { holder, open ->
+        if (open) {
+            if (openMenuHolder !== holder) openMenuHolder?.closeMenu()
+            openMenuHolder = holder
+            onMenuOpenChanged?.invoke(true)
+        } else if (openMenuHolder === holder) {
+            openMenuHolder = null
+            onMenuOpenChanged?.invoke(false)
+        }
+    }
+
     /** Called after every list change, with the list now on screen. */
     var onListChanged: ((List<AppModel>) -> Unit)? = null
 
@@ -169,6 +183,7 @@ class AppDrawerAdapter(
                     appHideListener,
                     appRenameListener,
                     appGroupsListener,
+                    menuListener,
                 ).also {
                     holder.bindLetter(sectionLetterAt(holder.bindingAdapterPosition), currentSection, showLetters)
                 }
@@ -284,9 +299,11 @@ class AppDrawerAdapter(
             appHideListener: (AppModel, Int) -> Unit,
             appRenameListener: (AppModel, String) -> Unit,
             appGroupsListener: ((AppModel, View) -> Unit)?,
+            menuListener: (ViewHolder, Boolean) -> Unit,
         ) = with(binding) {
             appHideLayout.visibility = View.GONE
             renameLayout.visibility = View.GONE
+            menuListener(this@ViewHolder, false)
             appTitle.visibility = View.VISIBLE
 
             // Show indicators in title based on app type and state
@@ -321,6 +338,7 @@ class AppDrawerAdapter(
                         false -> 1.0f
                     }
                     appHideLayout.visibility = View.VISIBLE
+                    menuListener(this@ViewHolder, true)
                     // Only allow renaming non hidden apps
                     appRename.isVisible = flag != Constants.FLAG_HIDDEN_APPS
                     appGroups.isVisible = appGroupsListener != null && flag == Constants.FLAG_LAUNCH_APP
@@ -366,6 +384,7 @@ class AppDrawerAdapter(
                     if (renameLabel.isNotBlank() && appModel.appPackage.isNotBlank()) {
                         appRenameListener(appModel, renameLabel)
                         renameLayout.visibility = View.GONE
+                    menuListener(this@ViewHolder, false)
                     }
                     true
                 }
@@ -377,26 +396,39 @@ class AppDrawerAdapter(
                 if (renameLabel.isNotBlank() && appModel.appPackage.isNotBlank()) {
                     appRenameListener(appModel, renameLabel)
                     renameLayout.visibility = View.GONE
+                    menuListener(this@ViewHolder, false)
                 } else {
                     appRenameListener(
                         appModel,
                         getAppName(etAppRename.context, appModel.appPackage, appModel.user)
                     )
                     renameLayout.visibility = View.GONE
+                    menuListener(this@ViewHolder, false)
                 }
             }
             appInfo.setOnClickListener { appInfoListener(appModel) }
             appDelete.setOnClickListener { appDeleteListener(appModel) }
             appMenuClose.setOnClickListener {
+                menuListener(this@ViewHolder, false)
                 appHideLayout.visibility = View.GONE
                 appTitle.visibility = View.VISIBLE
             }
             appRenameClose.setOnClickListener {
+                menuListener(this@ViewHolder, false)
                 renameLayout.visibility = View.GONE
                 appTitle.visibility = View.VISIBLE
             }
-            appHide.setOnClickListener { appHideListener(appModel, bindingAdapterPosition) }
+            appHide.setOnClickListener {
+                menuListener(this@ViewHolder, false)
+                appHideListener(appModel, bindingAdapterPosition)
+            }
             appGroups.setOnClickListener { appGroupsListener?.invoke(appModel, appGroups) }
+        }
+
+        fun closeMenu() = with(binding) {
+            appHideLayout.visibility = View.GONE
+            renameLayout.visibility = View.GONE
+            appTitle.visibility = View.VISIBLE
         }
 
         fun bindLetter(letter: String, currentSection: String, gutter: Boolean) = with(binding) {

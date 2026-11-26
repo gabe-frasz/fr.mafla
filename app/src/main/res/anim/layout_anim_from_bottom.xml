@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 4% of 400ms = 16ms between rows -->
+<!-- 6% of 400ms = 24ms between rows -->
 <layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
     android:animation="@anim/item_anim_from_bottom"
     android:animationOrder="normal"
-    android:delay="4%" />
+    android:delay="6%" />

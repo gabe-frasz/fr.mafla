@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Home making room for the app list: lifts, shrinks slightly and fades -->
+<!-- Home making room for the app list: lifts, shrinks slightly and fades, quickly -->
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="@integer/motion_exit"
     android:interpolator="@interpolator/emphasized_accelerate"
@@ -15,6 +15,6 @@
         android:fromYScale="1"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toXScale="0.98"
-        android:toYScale="0.98" />
+        android:toXScale="0.97"
+        android:toYScale="0.97" />
 </set>

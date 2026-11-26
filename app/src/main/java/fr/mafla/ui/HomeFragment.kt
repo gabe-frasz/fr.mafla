@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
+import android.view.animation.Animation
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -27,6 +28,7 @@ import fr.mafla.data.AppModel
 import fr.mafla.data.Constants
 import fr.mafla.data.Prefs
 import fr.mafla.databinding.FragmentHomeBinding
+import fr.mafla.helper.BackgroundBlur
 import fr.mafla.helper.appUsagePermissionGranted
 import fr.mafla.helper.expandNotificationDrawer
 import fr.mafla.helper.getUserHandleFromString
@@ -72,6 +74,13 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         setHomeAlignment(prefs.homeAlignment)
         initSwipeTouchListener()
         initClickListeners()
+    }
+
+    // Home is the only screen with a sharp wallpaper: blur it as home leaves, clear it as
+    // home comes back, in step with the screen transition.
+    override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
+        activity?.window?.let { BackgroundBlur.set(it, on = !enter) }
+        return super.onCreateAnimation(transit, enter, nextAnim)
     }
 
     override fun onResume() {

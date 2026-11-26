@@ -109,6 +109,7 @@ class AppDrawerFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefs = Prefs(requireContext())
+        applyOverlayScrim(view)
         arguments?.let {
             flag = it.getInt(Constants.Key.FLAG, Constants.FLAG_LAUNCH_APP)
             canRename = it.getBoolean(Constants.Key.RENAME, false)
@@ -606,6 +607,17 @@ class AppDrawerFragment : BaseFragment() {
     private fun initIndex() {
         adapter.indexEnabled = prefs.alphabetIndex
         adapter.onListChanged = { list -> updateIndex(list) }
+        // The actions row spans the whole width: step the rail out of its way
+        adapter.onMenuOpenChanged = { open ->
+            _binding?.indexRail?.let { rail ->
+                rail.animate().cancel()
+                rail.isEnabled = !open
+                val alpha = if (open) 0f else 1f
+                if (requireContext().isMotionEnabled())
+                    rail.animate().alpha(alpha).setDuration(150).setInterpolator(standardInterpolator).start()
+                else rail.alpha = alpha
+            }
+        }
         binding.indexRail.listener = object : AlphabetIndexView.Listener {
             override fun onScrubStart() {
                 binding.search.hideKeyboard()
@@ -617,10 +629,14 @@ class AppDrawerFragment : BaseFragment() {
             }
 
             override fun onScrub(section: AlphabetIndex.Section, centerY: Float) {
-                val bubble = binding.indexBubble
-                bubble.text = section.letter
-                bubble.translationY = centerY - bubble.height / 2f
+                binding.indexBubble.text = section.letter
                 linearLayoutManager.scrollToPositionWithOffset(section.position, 0)
+            }
+
+            override fun onFingerMoved(y: Float) {
+                // The big letter rides along with the finger
+                val bubble = binding.indexBubble
+                bubble.translationY = y - bubble.height / 2f
             }
 
             override fun onScrubEnd() = showBubble(false)
@@ -768,6 +784,7 @@ class AppDrawerFragment : BaseFragment() {
     override fun onDestroyView() {
         binding.recyclerView.animate().cancel()
         binding.indexBubble.animate().cancel()
+        binding.indexRail.animate().cancel()
         super.onDestroyView()
         searchTextView = null
         _binding = null

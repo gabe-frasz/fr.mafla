@@ -32,6 +32,7 @@
         <item name="primaryColor">@color/ink_dark</item>
         <item name="secondaryColor">@color/ink_dark_secondary</item>
         <item name="tertiaryColor">@color/ink_dark_tertiary</item>
+        <item name="groundScrimColor">@color/ground_dark_scrim</item>
         <item name="lineColor">@color/ink_dark_line</item>
         <item name="primaryInverseColor">@color/whiteInverse</item>
         <item name="primaryTextShadowColor">@color/whiteInverseTrans50</item>

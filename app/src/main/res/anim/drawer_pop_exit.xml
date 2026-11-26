@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- App list closing first; home comes in right after -->
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="@integer/motion_exit"
     android:interpolator="@interpolator/emphasized_accelerate"

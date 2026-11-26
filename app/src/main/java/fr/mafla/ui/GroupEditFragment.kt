@@ -58,6 +58,7 @@ class GroupEditFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefs = Prefs(requireContext())
+        applyOverlayScrim(view)
 
         // Runs again when the view is recreated: keep what was edited so far
         if (!initialized) {

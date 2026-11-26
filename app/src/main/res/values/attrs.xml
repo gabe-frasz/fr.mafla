@@ -15,4 +15,11 @@
     <attr name="secondaryColor" format="color" />
     <attr name="tertiaryColor" format="color" />
     <attr name="lineColor" format="color" />
+    <!-- Nearly opaque ground, for things drawn over the list (the app actions row) -->
+    <attr name="groundScrimColor" format="color" />
+
+    <declare-styleable name="FadingEdgeLayout">
+        <attr name="fadeTop" format="dimension" />
+        <attr name="fadeBottom" format="dimension" />
+    </declare-styleable>
 </resources>

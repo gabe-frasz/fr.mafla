@@ -111,16 +111,19 @@
             </LinearLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/appsList"
+        <fr.mafla.ui.widget.FadingEdgeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:clipToPadding="false"
-            android:fadingEdgeLength="48dp"
-            android:paddingBottom="88dp"
-            android:requiresFadingEdge="vertical"
-            tools:listitem="@layout/item_group_app" />
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="96dp"
+                tools:listitem="@layout/item_group_app" />
+        </fr.mafla.ui.widget.FadingEdgeLayout>
     </LinearLayout>
 
     <TextView

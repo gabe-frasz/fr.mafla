@@ -36,6 +36,7 @@
     <color name="ink_dark_trans50">#80EDEDEC</color>
     <color name="ink_dark_trans80">#CCEDEDEC</color>
     <color name="ink_dark_line">#2A2A2C</color>
+    <color name="ground_dark_scrim">#EB0E0E0F</color>
 
     <color name="ground_light">#F7F7F5</color>
     <color name="ink_light">#161616</color>
@@ -44,5 +45,6 @@
     <color name="ink_light_trans50">#80161616</color>
     <color name="ink_light_trans80">#CC161616</color>
     <color name="ink_light_line">#E4E4E1</color>
+    <color name="ground_light_scrim">#EBF7F7F5</color>
 
 </resources>

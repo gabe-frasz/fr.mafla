@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     android:background="?attr/primaryShadeDarkColor">
 
+    <fr.mafla.ui.widget.FadingEdgeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadingEdgeLength="48dp"
         android:fillViewport="true"
         android:overScrollMode="never"
-        android:requiresFadingEdge="vertical"
         android:scrollbars="none">
 
         <LinearLayout
@@ -158,4 +160,5 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    </fr.mafla.ui.widget.FadingEdgeLayout>
 </FrameLayout>

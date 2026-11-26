@@ -17,7 +17,7 @@
     <!-- Spacing, on a 4dp grid -->
     <dimen name="screen_margin">28dp</dimen>
     <dimen name="list_text_start">64dp</dimen>
-    <dimen name="index_rail_width">36dp</dimen>
+    <dimen name="index_rail_width">44dp</dimen>
     <dimen name="index_rail_row">24dp</dimen>
     <dimen name="app_padding_vertical">12dp</dimen>
     <dimen name="home_app_padding_vertical">12dp</dimen>
@@ -25,4 +25,9 @@
     <dimen name="tab_height">44dp</dimen>
 
     <dimen name="dialog_blur_behind_radius">4dp</dimen>
+    <!-- Wallpaper blur behind the app list and the settings screens -->
+    <dimen name="overlay_blur_radius">24dp</dimen>
+    <!-- Soft fades where lists scroll under an edge -->
+    <dimen name="list_fade_top">48dp</dimen>
+    <dimen name="list_fade_bottom">72dp</dimen>
 </resources>

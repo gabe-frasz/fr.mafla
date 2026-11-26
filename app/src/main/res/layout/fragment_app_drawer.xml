@@ -78,18 +78,20 @@
 
         </HorizontalScrollView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <fr.mafla.ui.widget.FadingEdgeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"
-            android:layout_weight="1"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:fadingEdgeLength="32dp"
-            android:paddingTop="8dp"
-            android:requiresFadingEdge="vertical" />
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
+                android:paddingBottom="48dp" />
+        </fr.mafla.ui.widget.FadingEdgeLayout>
 
     </LinearLayout>
 
@@ -117,7 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|center_vertical"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="2dp"
         android:visibility="gone"
         tools:visibility="visible" />
 

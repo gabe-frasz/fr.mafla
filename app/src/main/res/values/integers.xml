@@ -3,9 +3,12 @@
     <!-- Dialog fade in/out, shared by the window animation and the blur ramp -->
     <integer name="dialog_anim_duration">250</integer>
 
-    <!-- Motion tokens -->
+    <!-- Motion tokens. Screen changes are a fade-through: the old screen leaves first
+         (motion_exit), the new one starts after motion_handoff and takes motion_enter. -->
     <integer name="motion_enter">400</integer>
-    <integer name="motion_exit">200</integer>
+    <integer name="motion_exit">150</integer>
+    <integer name="motion_handoff">100</integer>
     <integer name="motion_switch">250</integer>
     <integer name="motion_fade">200</integer>
+    <integer name="motion_blur">350</integer>
 </resources>

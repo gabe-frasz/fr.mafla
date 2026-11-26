@@ -38,6 +38,7 @@ class GroupsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefs = Prefs(requireContext())
+        applyOverlayScrim(view)
 
         adapter = GroupsAdapter()
         binding.groupsList.layoutManager = LinearLayoutManager(requireContext())

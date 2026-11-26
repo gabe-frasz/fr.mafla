@@ -16,7 +16,8 @@ import fr.mafla.R
 import fr.mafla.helper.AlphabetIndex
 import fr.mafla.helper.getColorFromAttr
 import fr.mafla.helper.isMotionEnabled
-import kotlin.math.abs
+import androidx.core.graphics.ColorUtils
+import kotlin.math.exp
 
 /**
  * The letter rail on the side of the app list. Shows only letters that have apps, marks the
@@ -32,6 +33,9 @@ class AlphabetIndexView @JvmOverloads constructor(
     interface Listener {
         fun onScrubStart()
         fun onScrub(section: AlphabetIndex.Section, centerY: Float)
+
+        /** Finger position while dragging, in the parent's coordinates. */
+        fun onFingerMoved(y: Float) = Unit
         fun onScrubEnd()
     }
 
@@ -40,12 +44,13 @@ class AlphabetIndexView @JvmOverloads constructor(
     private var sections: List<AlphabetIndex.Section> = emptyList()
     private var current: String = ""
     private var touched = -1
+    private var fingerY = 0f
     private var fisheye = 0f
     private var fisheyeAnimator: ValueAnimator? = null
 
     private val rowHeight = resources.getDimension(R.dimen.index_rail_row)
     private val dotRadius = dp(2f)
-    private val dotInset = dp(6f)
+    private val dotInset = dp(12f)
     private val activeColor = context.getColorFromAttr(R.attr.primaryColor)
     private val idleColor = context.getColorFromAttr(R.attr.tertiaryColor)
 
@@ -85,23 +90,18 @@ class AlphabetIndexView @JvmOverloads constructor(
         val baselineShift = (textPaint.descent() + textPaint.ascent()) / 2f
         sections.forEachIndexed { index, section ->
             val rowCenter = paddingTop + rowHeight * index + rowHeight / 2f
-            val distance = if (touched >= 0) abs(index - touched) else Int.MAX_VALUE
-            val scale = 1f + fisheye * when (distance) {
-                0 -> 0.6f
-                1 -> 0.25f
-                2 -> 0.1f
-                else -> 0f
+            // Fisheye follows the finger continuously, not row by row
+            val distance = (rowCenter - fingerY) / rowHeight
+            val influence = fisheye * exp(-(distance * distance) / (2 * SPREAD * SPREAD))
+            val scale = 1f + MAX_GROWTH * influence
+            val shift = -dp(MAX_SHIFT_DP) * influence
+
+            val isCurrent = touched < 0 && section.letter == current
+            textPaint.color = when {
+                touched >= 0 -> ColorUtils.blendARGB(idleColor, activeColor, if (index == touched) 1f else influence * 0.6f)
+                isCurrent -> activeColor
+                else -> idleColor
             }
-            val shift = -fisheye * dp(
-                when (distance) {
-                    0 -> 14f
-                    1 -> 8f
-                    2 -> 3f
-                    else -> 0f
-                }
-            )
-            val isCurrent = if (touched >= 0) index == touched else section.letter == current
-            textPaint.color = if (isCurrent) activeColor else idleColor
 
             canvas.save()
             canvas.translate(centerX + shift, rowCenter)
@@ -109,24 +109,26 @@ class AlphabetIndexView @JvmOverloads constructor(
             canvas.drawText(section.letter, 0f, -baselineShift, textPaint)
             canvas.restore()
 
-            if (isCurrent && touched < 0)
-                canvas.drawCircle(dotInset, rowCenter, dotRadius, dotPaint)
+            if (isCurrent)
+                canvas.drawCircle(centerX - dotInset, rowCenter, dotRadius, dotPaint)
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (sections.isEmpty()) return false
+        if (!isEnabled || sections.isEmpty()) return false
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 parent?.requestDisallowInterceptTouchEvent(true)
                 listener?.onScrubStart()
+                moveFinger(event.y)
                 animateFisheye(1f)
                 select(event.y)
                 return true
             }
 
             MotionEvent.ACTION_MOVE -> {
+                moveFinger(event.y)
                 select(event.y)
                 return true
             }
@@ -145,6 +147,12 @@ class AlphabetIndexView @JvmOverloads constructor(
     }
 
     override fun performClick(): Boolean = super.performClick()
+
+    private fun moveFinger(y: Float) {
+        fingerY = y.coerceIn(paddingTop.toFloat(), (height - paddingBottom).toFloat())
+        listener?.onFingerMoved(top + fingerY)
+        invalidate()
+    }
 
     private fun select(y: Float) {
         val index = ((y - paddingTop) / rowHeight).toInt().coerceIn(0, sections.lastIndex)
@@ -177,6 +185,12 @@ class AlphabetIndexView @JvmOverloads constructor(
     override fun onDetachedFromWindow() {
         fisheyeAnimator?.cancel()
         super.onDetachedFromWindow()
+    }
+
+    private companion object {
+        const val SPREAD = 1.2f // rows
+        const val MAX_GROWTH = 0.6f
+        const val MAX_SHIFT_DP = 10f
     }
 
     private fun dp(value: Float): Float =
