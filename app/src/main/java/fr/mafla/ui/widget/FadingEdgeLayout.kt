@@ -52,6 +52,9 @@ class FadingEdgeLayout @JvmOverloads constructor(
         )
         a.recycle()
         setWillNotDraw(false)
+        // Draw into a persistent GPU layer: the fades erase pixels of this layer only, without
+        // allocating an offscreen buffer (saveLayer) on every scroll frame.
+        setLayerType(LAYER_TYPE_HARDWARE, null)
     }
 
     override fun onViewAdded(child: View) {
@@ -78,7 +81,6 @@ class FadingEdgeLayout @JvmOverloads constructor(
 
         val w = width.toFloat()
         val h = height.toFloat()
-        val layer = canvas.saveLayer(0f, 0f, w, h, null)
         super.dispatchDraw(canvas)
 
         if (topStrength > 0f) {
@@ -96,7 +98,6 @@ class FadingEdgeLayout @JvmOverloads constructor(
             paint.alpha = (255 * bottomStrength).toInt()
             canvas.drawRect(0f, h - fadeBottom, w, h, paint)
         }
-        canvas.restoreToCount(layer)
     }
 
     /** How far the child's content extends above and below what's visible, in px. */

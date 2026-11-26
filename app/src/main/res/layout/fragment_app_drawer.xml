@@ -96,12 +96,15 @@
     </LinearLayout>
 
     <!-- Big letter next to the finger while dragging along the index -->
+    <!-- Fixed size so changing the letter never triggers a layout pass -->
     <TextView
         android:id="@+id/indexBubble"
         style="@style/TextDefault"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="top|end"
+        android:gravity="center_vertical|end"
+        android:maxLines="1"
         android:layout_marginEnd="96dp"
         android:alpha="0"
         android:fontFamily="@font/inter_extralight"

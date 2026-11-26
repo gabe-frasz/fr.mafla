@@ -50,6 +50,7 @@ class AlphabetIndexView @JvmOverloads constructor(
 
     // The dot marking the current section glides between letters instead of jumping.
     // Negative means "not placed yet": the next draw puts it on the current letter.
+    private var motionEnabled = true
     private var dotY = -1f
     private var dotAnimator: ValueAnimator? = null
 
@@ -81,7 +82,7 @@ class AlphabetIndexView @JvmOverloads constructor(
         current = letter
         val target = rowCenterOf(letter) ?: return invalidate()
         dotAnimator?.cancel()
-        if (dotY < 0f || !isLaidOut || touched >= 0 || !context.isMotionEnabled()) {
+        if (dotY < 0f || !isLaidOut || touched >= 0 || !motionEnabled) {
             dotY = target
             invalidate()
             return
@@ -202,7 +203,7 @@ class AlphabetIndexView @JvmOverloads constructor(
 
     private fun animateFisheye(target: Float) {
         fisheyeAnimator?.cancel()
-        if (!context.isMotionEnabled()) {
+        if (!motionEnabled) {
             fisheye = target
             invalidate()
             return
@@ -216,6 +217,12 @@ class AlphabetIndexView @JvmOverloads constructor(
             }
             start()
         }
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        // Reads system settings: once per attach, not on every letter
+        motionEnabled = context.isMotionEnabled()
     }
 
     override fun onDetachedFromWindow() {

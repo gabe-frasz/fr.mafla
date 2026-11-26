@@ -90,6 +90,7 @@ class AppDrawerFragment : BaseFragment() {
     private var sections: List<AlphabetIndex.Section> = emptyList()
     private var currentSectionLetter = ""
 
+    private var motionEnabled = true
     private lateinit var standardInterpolator: Interpolator
     private lateinit var accelerateInterpolator: Interpolator
 
@@ -115,6 +116,7 @@ class AppDrawerFragment : BaseFragment() {
             canRename = it.getBoolean(Constants.Key.RENAME, false)
         }
 
+        motionEnabled = requireContext().isMotionEnabled()
         standardInterpolator = AnimationUtils.loadInterpolator(requireContext(), R.interpolator.standard)
         accelerateInterpolator = AnimationUtils.loadInterpolator(requireContext(), R.interpolator.emphasized_accelerate)
 
@@ -303,9 +305,14 @@ class AppDrawerFragment : BaseFragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addOnScrollListener(getRecyclerViewOnScrollListener())
         binding.recyclerView.itemAnimator = null
+        // Jumping along the index replaces every row on screen at once: keep enough rows around
+        // to rebind instead of inflating new ones, and skip re-measuring the list on changes.
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.setItemViewCacheSize(12)
+        binding.recyclerView.recycledViewPool.setMaxRecycledViews(AppDrawerAdapter.VIEW_TYPE_APP, 40)
         if (requireContext().isEinkDisplay())
             binding.recyclerView.overScrollMode = View.OVER_SCROLL_NEVER
-        if (requireContext().isMotionEnabled())
+        if (motionEnabled)
             binding.recyclerView.layoutAnimation =
                 AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_anim_from_bottom)
         binding.recyclerView.addOnItemTouchListener(GroupSwipeListener())
@@ -462,7 +469,7 @@ class AppDrawerFragment : BaseFragment() {
     }
 
     private fun updateTabState(animate: Boolean) {
-        val motion = animate && requireContext().isMotionEnabled()
+        val motion = animate && motionEnabled
         tabs.indices.forEach { index ->
             val tab = binding.groupTabs.getChildAt(index) ?: return@forEach
             val label = tab.findViewById<TextView>(R.id.tabLabel)
@@ -515,7 +522,7 @@ class AppDrawerFragment : BaseFragment() {
 
         val list = binding.recyclerView
         list.animate().cancel()
-        if (!requireContext().isMotionEnabled()) {
+        if (!motionEnabled) {
             list.translationX = 0f
             list.alpha = 1f
             applyActiveGroup()
@@ -524,6 +531,7 @@ class AppDrawerFragment : BaseFragment() {
         // Out: slide 16dp the way the finger went and fade. In: come from the other side.
         val shift = 16.dpToPx() * direction.toFloat()
         list.animate().alpha(0f).translationX(-shift)
+            .withLayer()
             .setDuration(120)
             .setInterpolator(accelerateInterpolator)
             .withEndAction {
@@ -531,6 +539,7 @@ class AppDrawerFragment : BaseFragment() {
                 applyActiveGroup()
                 rv.translationX = shift
                 rv.animate().alpha(1f).translationX(0f)
+                    .withLayer()
                     .setDuration(resources.getInteger(R.integer.motion_switch).toLong())
                     .setInterpolator(standardInterpolator)
                     .start()
@@ -549,6 +558,7 @@ class AppDrawerFragment : BaseFragment() {
         val list = _binding?.recyclerView ?: return
         if (list.translationX == 0f && list.alpha == 1f) return
         list.animate().alpha(1f).translationX(0f)
+            .withLayer()
             .setDuration(resources.getInteger(R.integer.motion_exit).toLong())
             .setInterpolator(standardInterpolator)
             .start()
@@ -613,7 +623,7 @@ class AppDrawerFragment : BaseFragment() {
                 rail.animate().cancel()
                 rail.isEnabled = !open
                 val alpha = if (open) 0f else 1f
-                if (requireContext().isMotionEnabled())
+                if (motionEnabled)
                     rail.animate().alpha(alpha).setDuration(150).setInterpolator(standardInterpolator).start()
                 else rail.alpha = alpha
             }
@@ -662,8 +672,7 @@ class AppDrawerFragment : BaseFragment() {
         if (letter == currentSectionLetter) return
         currentSectionLetter = letter
         b.indexRail.setCurrent(letter)
-        // Not while RecyclerView is mid-layout or mid-scroll
-        b.recyclerView.post { if (_binding != null) adapter.setCurrentSection(letter) }
+        adapter.setCurrentSection(letter)
     }
 
     private fun showBubble(show: Boolean) {
@@ -671,7 +680,7 @@ class AppDrawerFragment : BaseFragment() {
         val alpha = if (show) 1f else 0f
         val scale = if (show) 1f else 0.9f
         bubble.animate().cancel()
-        if (!requireContext().isMotionEnabled()) {
+        if (!motionEnabled) {
             bubble.alpha = alpha
             bubble.scaleX = scale
             bubble.scaleY = scale
@@ -712,6 +721,8 @@ class AppDrawerFragment : BaseFragment() {
                         abs(dx) > touchSlop * 2 && abs(dx) > abs(dy) * 2
                     ) {
                         rv.parent?.requestDisallowInterceptTouchEvent(true)
+                        // The list follows the finger with changing alpha: draw it from a layer
+                        rv.setLayerType(View.LAYER_TYPE_HARDWARE, null)
                         return true
                     }
                 }
@@ -732,6 +743,7 @@ class AppDrawerFragment : BaseFragment() {
                 }
 
                 MotionEvent.ACTION_UP -> {
+                    rv.setLayerType(View.LAYER_TYPE_NONE, null)
                     val velocity = tracker?.let {
                         it.computeCurrentVelocity(1000)
                         it.xVelocity
@@ -746,6 +758,7 @@ class AppDrawerFragment : BaseFragment() {
                 }
 
                 MotionEvent.ACTION_CANCEL -> {
+                    rv.setLayerType(View.LAYER_TYPE_NONE, null)
                     settleList()
                     recycle()
                 }
