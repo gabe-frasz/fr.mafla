@@ -62,6 +62,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefs = Prefs(requireContext())
+        applyOverlayScrim(view)
         viewModel = activity?.run {
             ViewModelProvider(this)[MainViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
@@ -84,6 +85,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
         populateStatusBar()
         populateDateTime()
         populateSwipeApps()
+        populateListOptions()
         initClickListeners()
         initObservers()
     }
@@ -108,6 +110,18 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
 
             R.id.swipeLeftApp -> showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP)
             R.id.swipeRightApp -> showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP)
+
+            R.id.groupsCount -> findNavController().navigate(R.id.action_settingsFragment_to_groupsFragment)
+            R.id.alphabetIndex -> {
+                prefs.alphabetIndex = !prefs.alphabetIndex
+                populateListOptions()
+            }
+
+            R.id.animations -> {
+                prefs.animationsEnabled = !prefs.animationsEnabled
+                populateListOptions()
+                requireActivity().recreate()
+            }
         }
     }
 
@@ -157,6 +171,40 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
         binding.swipeLeftApp.setOnLongClickListener(this)
         binding.swipeRightApp.setOnLongClickListener(this)
         binding.toggleLock.setOnLongClickListener(this)
+        binding.groupsCount.setOnClickListener(this)
+        binding.alphabetIndex.setOnClickListener(this)
+        binding.animations.setOnClickListener(this)
+        binding.back.setOnClickListener { findNavController().popBackStack() }
+
+        // The whole row is the touch target; it acts like a tap on its value
+        listOf(
+            binding.homeAppsNumRow to binding.homeAppsNum,
+            binding.dateTimeRow to binding.dateTime,
+            binding.alignmentRow to binding.alignment,
+            binding.screenTimeLayout to binding.screenTimeOnOff,
+            binding.groupsRow to binding.groupsCount,
+            binding.alphabetIndexRow to binding.alphabetIndex,
+            binding.autoShowKeyboardRow to binding.autoShowKeyboard,
+            binding.hiddenAppsRow to binding.maflaHiddenApps,
+            binding.appThemeRow to binding.appThemeText,
+            binding.statusBarRow to binding.statusBar,
+            binding.boldFontRow to binding.boldFont,
+            binding.textSizeRow to binding.textSizeValue,
+            binding.animationsRow to binding.animations,
+            binding.swipeLeftRow to binding.swipeLeftApp,
+            binding.swipeRightRow to binding.swipeRightApp,
+            binding.toggleLockRow to binding.toggleLock,
+        ).forEach { (row, value) ->
+            row.setOnClickListener { onClick(value) }
+            row.setOnLongClickListener { onLongClick(value) }
+        }
+    }
+
+    private fun populateListOptions() {
+        binding.groupsCount.text = prefs.appGroups.size.toString()
+        binding.maflaHiddenApps.text = prefs.hiddenApps.size.toString()
+        binding.alphabetIndex.text = getString(if (prefs.alphabetIndex) R.string.on else R.string.off)
+        binding.animations.text = getString(if (prefs.animationsEnabled) R.string.system_default else R.string.off)
     }
 
     private fun initObservers() {
@@ -270,7 +318,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
     private fun toggleSwipeLeft() {
         prefs.swipeLeftEnabled = !prefs.swipeLeftEnabled
         if (prefs.swipeLeftEnabled) {
-            binding.swipeLeftApp.setTextColor(requireContext().getColorFromAttr(R.attr.primaryColor))
+            binding.swipeLeftApp.setTextColor(requireContext().getColorFromAttr(R.attr.secondaryColor))
             requireContext().showToast(getString(R.string.swipe_left_app_enabled))
         } else {
             binding.swipeLeftApp.setTextColor(requireContext().getColorFromAttr(R.attr.primaryColorTrans50))
@@ -281,7 +329,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
     private fun toggleSwipeRight() {
         prefs.swipeRightEnabled = !prefs.swipeRightEnabled
         if (prefs.swipeRightEnabled) {
-            binding.swipeRightApp.setTextColor(requireContext().getColorFromAttr(R.attr.primaryColor))
+            binding.swipeRightApp.setTextColor(requireContext().getColorFromAttr(R.attr.secondaryColor))
             requireContext().showToast(getString(R.string.swipe_right_app_enabled))
         } else {
             binding.swipeRightApp.setTextColor(requireContext().getColorFromAttr(R.attr.primaryColorTrans50))
@@ -446,7 +494,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
             else -> Resources.getSystem().configuration.uiMode and
                     Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
         }
-        val color = if (dark) android.R.color.black else android.R.color.white
+        val color = if (dark) R.color.ground_dark else R.color.ground_light
         showDialog(
             requireContext().createDialog(
                 title = R.string.wallpaper,

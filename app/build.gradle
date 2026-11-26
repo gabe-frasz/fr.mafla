@@ -24,6 +24,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // Fixed debug key, committed on purpose: every CI build is signed the same way, so a new
+    // debug APK installs over the previous one. It signs debug builds only, never releases.
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storeType 'pkcs12'
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
     buildTypes {
         release {
             debuggable false
@@ -34,6 +46,7 @@ android {
             debuggable true
             minifyEnabled false
             applicationIdSuffix ".debug"
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

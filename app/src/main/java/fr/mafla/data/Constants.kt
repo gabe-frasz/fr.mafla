@@ -5,6 +5,8 @@ object Constants {
     object Key {
         const val FLAG = "flag"
         const val RENAME = "rename"
+        const val GROUP_ID = "groupId"
+        const val PRESELECT_MEMBER = "preselectMember"
     }
 
     object Dialog {
@@ -65,7 +67,8 @@ object Constants {
     const val REQUEST_CODE_ENABLE_ADMIN = 666
     const val REQUEST_CODE_LAUNCHER_SELECTOR = 678
 
-    const val LONG_PRESS_DELAY_MS = 500L
+    // Extra hold on top of the system long-press timeout before home long presses fire
+    const val LONG_PRESS_DELAY_MS = 150L
     const val ONE_DAY_IN_MILLIS = 86400000L
     const val ONE_HOUR_IN_MILLIS = 3600000L
     const val ONE_MINUTE_IN_MILLIS = 60000L

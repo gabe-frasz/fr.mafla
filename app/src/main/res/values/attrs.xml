@@ -11,5 +11,15 @@
     <attr name="primaryShadeColor" format="color" />
     <attr name="dialogShadeColor" format="color" />
     <attr name="primaryShadeDarkColor" format="color" />
-    <attr name="mainFontFamily" format="string" />
+    <attr name="mainFontFamily" format="reference|string" />
+    <attr name="secondaryColor" format="color" />
+    <attr name="tertiaryColor" format="color" />
+    <attr name="lineColor" format="color" />
+    <!-- Nearly opaque ground, for things drawn over the list (the app actions row) -->
+    <attr name="groundScrimColor" format="color" />
+
+    <declare-styleable name="FadingEdgeLayout">
+        <attr name="fadeTop" format="dimension" />
+        <attr name="fadeBottom" format="dimension" />
+    </declare-styleable>
 </resources>

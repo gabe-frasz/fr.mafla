@@ -13,10 +13,10 @@
         <action
             android:id="@+id/action_mainFragment_to_appListFragment"
             app:destination="@id/appListFragment"
-            app:enterAnim="@anim/fade_enter"
-            app:exitAnim="@anim/slide_out_top"
-            app:popEnterAnim="@anim/slide_in_top"
-            app:popExitAnim="@anim/fade_exit" />
+            app:enterAnim="@anim/drawer_enter"
+            app:exitAnim="@anim/home_exit"
+            app:popEnterAnim="@anim/home_pop_enter"
+            app:popExitAnim="@anim/drawer_pop_exit" />
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
@@ -40,12 +40,20 @@
             app:popExitAnim="@anim/fade_exit"
             app:popUpTo="@+id/appListFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_appListFragment_to_groupEditFragment"
+            app:destination="@id/groupEditFragment"
+            app:enterAnim="@anim/fade_enter"
+            app:exitAnim="@anim/fade_exit"
+            app:popEnterAnim="@anim/fade_enter"
+            app:popExitAnim="@anim/fade_exit" />
     </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="fr.mafla.ui.SettingsFragment"
         android:label="SettingsFragment"
-        android:layout="@layout/fragment_settings">
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_appListFragment"
             app:destination="@id/appListFragment"
@@ -53,6 +61,33 @@
             app:exitAnim="@anim/fade_exit"
             app:popEnterAnim="@anim/fade_enter"
             app:popExitAnim="@anim/fade_exit" />
+        <action
+            android:id="@+id/action_settingsFragment_to_groupsFragment"
+            app:destination="@id/groupsFragment"
+            app:enterAnim="@anim/fade_enter"
+            app:exitAnim="@anim/fade_exit"
+            app:popEnterAnim="@anim/fade_enter"
+            app:popExitAnim="@anim/fade_exit" />
     </fragment>
+
+    <fragment
+        android:id="@+id/groupsFragment"
+        android:name="fr.mafla.ui.GroupsFragment"
+        android:label="GroupsFragment"
+        tools:layout="@layout/fragment_groups">
+        <action
+            android:id="@+id/action_groupsFragment_to_groupEditFragment"
+            app:destination="@id/groupEditFragment"
+            app:enterAnim="@anim/fade_enter"
+            app:exitAnim="@anim/fade_exit"
+            app:popEnterAnim="@anim/fade_enter"
+            app:popExitAnim="@anim/fade_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/groupEditFragment"
+        android:name="fr.mafla.ui.GroupEditFragment"
+        android:label="GroupEditFragment"
+        tools:layout="@layout/fragment_group_edit" />
 
 </navigation>

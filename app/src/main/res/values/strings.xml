@@ -112,4 +112,46 @@
     <string name="invalid_shortcut">Invalid shortcut</string>
     <string name="shortcut_not_found">Shortcut not found</string>
     <string name="unable_to_open_shortcut">Unable to open shortcut</string>
+
+    <!-- Redesign: settings, groups and the alphabetical index -->
+    <string name="settings">Settings</string>
+    <string name="back">Back</string>
+    <string name="app_list">App list</string>
+    <string name="app_info">App info</string>
+    <string name="search_hint">Search</string>
+    <string name="search_in_group">Search in %1$s</string>
+    <string name="search_apps">Search apps</string>
+    <string name="screen_time_today">%1$s of screen time today</string>
+    <string name="alphabet_index">Alphabetical index</string>
+    <string name="go_to_letter">Go to %1$s</string>
+    <string name="animations">Animations</string>
+    <string name="groups">Groups</string>
+    <string name="all_apps_tab">All</string>
+    <string name="new_group">New group</string>
+    <string name="new_group_ellipsis">New group…</string>
+    <string name="edit_group">Edit group</string>
+    <string name="group_name">Group name</string>
+    <string name="groups_description">Groups show up as tabs above the app list. An app can be in more than one group.</string>
+    <string name="no_groups_yet">No groups yet.</string>
+    <string name="behavior">Behavior</string>
+    <string name="swipe_to_switch">Swipe to switch</string>
+    <string name="open_last_group">Open on last group</string>
+    <string name="show_all_tab">Show the All tab</string>
+    <string name="reorder_hint">Hold ⋮⋮ and drag to reorder the tabs.</string>
+    <string name="reorder_group">Reorder %1$s</string>
+    <string name="only_selected">Only selected</string>
+    <string name="show_all">Show all</string>
+    <string name="delete_group">Delete group</string>
+    <string name="delete_group_message">The apps stay installed, only the group goes away.</string>
+    <string name="delete_confirm">Delete</string>
+    <string name="cancel">Cancel</string>
+    <plurals name="selected_count">
+        <item quantity="one">%d selected</item>
+        <item quantity="other">%d selected</item>
+    </plurals>
+    <plurals name="group_app_count">
+        <item quantity="one">%d app</item>
+        <item quantity="other">%d apps</item>
+    </plurals>
+
 </resources>

@@ -1,70 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:background="?attr/primaryShadeDarkColor"
-    android:orientation="vertical">
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        android:layout_weight="0.1" />
+    android:background="?attr/primaryShadeDarkColor">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:imeOptions="actionSearch"
-            android:paddingHorizontal="7dp"
-            android:paddingVertical="0dp"
-            android:textCursorDrawable="@null"
-            app:closeIcon="@null"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@null"
-            app:queryHint=" ___"
-            app:searchIcon="@null"
-            app:theme="@style/AppSearchText" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="56dp" />
 
-        <TextView
-            android:id="@+id/appRename"
-            style="@style/TextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="20dp"
-            android:paddingVertical="@dimen/app_padding_vertical"
-            android:text="@string/rename"
-            android:textAllCaps="true"
-            android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:animateLayoutChanges="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- The query text lines up with the app names, 64dp from the edge -->
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:imeOptions="actionSearch"
+                android:paddingStart="47dp"
+                android:paddingEnd="7dp"
+                android:paddingVertical="0dp"
+                android:textCursorDrawable="@null"
+                app:closeIcon="@null"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@null"
+                app:queryHint="@string/search_hint"
+                app:searchIcon="@null"
+                app:theme="@style/AppSearchText" />
+
+            <TextView
+                android:id="@+id/appRename"
+                style="@style/TextSmallBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/screen_margin"
+                android:paddingVertical="@dimen/app_padding_vertical"
+                android:text="@string/rename"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <!-- Group tabs, filled in code -->
+        <HorizontalScrollView
+            android:id="@+id/groupTabsScroll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:layout_marginTop="8dp"
+            android:fadingEdgeLength="48dp"
+            android:overScrollMode="never"
+            android:requiresFadingEdge="horizontal"
+            android:scrollbars="none"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/groupTabs"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/list_text_start"
+                android:paddingEnd="@dimen/screen_margin" />
+
+        </HorizontalScrollView>
+
+        <fr.mafla.ui.widget.FadingEdgeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
+                android:paddingBottom="48dp" />
+        </fr.mafla.ui.widget.FadingEdgeLayout>
 
     </LinearLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.06" />
+    <!-- Big letter next to the finger while dragging along the index -->
+    <!-- Fixed size so changing the letter never triggers a layout pass -->
+    <TextView
+        android:id="@+id/indexBubble"
+        style="@style/TextDefault"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="top|end"
+        android:gravity="center_vertical|end"
+        android:maxLines="1"
+        android:layout_marginEnd="96dp"
+        android:alpha="0"
+        android:fontFamily="@font/inter_extralight"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.04"
+        android:textColor="?attr/primaryColor"
+        android:textSize="@dimen/text_index_bubble"
+        android:importantForAccessibility="no"
+        tools:alpha="1"
+        tools:text="M" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginBottom="24dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:fadingEdgeLength="24dp"
-        android:requiresFadingEdge="vertical" />
+    <fr.mafla.ui.widget.AlphabetIndexView
+        android:id="@+id/indexRail"
+        android:layout_width="@dimen/index_rail_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="2dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
-</LinearLayout>
+</FrameLayout>

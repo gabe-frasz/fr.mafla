@@ -23,54 +23,52 @@
         android:layout_height="1dp"
         android:contentDescription="@string/recents_layout_description" /> -->
 
-    <!-- Clock and calendar-->
+    <!-- Clock, date and screen time -->
     <LinearLayout
-        android:id="@+id/dateTimeLayout"
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="56dp"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:layout_marginHorizontal="@dimen/screen_margin"
+        android:layout_marginTop="104dp"
+        android:orientation="vertical">
 
-        <TextClock
-            android:id="@+id/clock"
-            style="@style/TextDefault"
+        <LinearLayout
+            android:id="@+id/dateTimeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextClock
+                android:id="@+id/clock"
+                style="@style/TextClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-4dp"
+                android:format12Hour="h:mm"
+                tools:text="21:47" />
+
+            <TextView
+                android:id="@+id/date"
+                style="@style/TextDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="qui, 26 nov" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvScreenTime"
+            style="@style/TextCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:format12Hour="h:mm"
-            android:textSize="@dimen/time_size"
-            tools:text="02:34" />
-
-        <TextView
-            android:id="@+id/date"
-            style="@style/TextDefault"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:format12Hour="EEE, dd MMM"
-            android:format24Hour="EEE, dd MMM"
-            android:paddingHorizontal="3dp"
-            android:textSize="@dimen/date_size"
-            tools:text="Thu, 30 Dec" />
+            android:layout_marginTop="4dp"
+            android:paddingVertical="8dp"
+            android:visibility="gone"
+            tools:text="2h 14min de tela hoje"
+            tools:visibility="visible" />
     </LinearLayout>
-
-    <!-- Screen time-->
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvScreenTime"
-        style="@style/TextSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="72dp"
-        android:gravity="center"
-        android:padding="10dp"
-        android:textSize="@dimen/date_size"
-        android:visibility="gone"
-        tools:text="2h 11m"
-        tools:visibility="visible" />
 
     <!-- Home apps-->
     <LinearLayout
@@ -79,13 +77,13 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingHorizontal="24dp"
+        android:paddingHorizontal="@dimen/screen_margin"
         android:paddingTop="112dp"
-        android:paddingBottom="48dp">
+        android:paddingBottom="72dp">
 
         <TextView
             android:id="@+id/homeApp1"
-            style="@style/TextLarge"
+            style="@style/TextHomeApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -97,7 +95,7 @@
 
         <TextView
             android:id="@+id/homeApp2"
-            style="@style/TextLarge"
+            style="@style/TextHomeApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -109,7 +107,7 @@
 
         <TextView
             android:id="@+id/homeApp3"
-            style="@style/TextLarge"
+            style="@style/TextHomeApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -121,7 +119,7 @@
 
         <TextView
             android:id="@+id/homeApp4"
-            style="@style/TextLarge"
+            style="@style/TextHomeApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -133,7 +131,7 @@
 
         <TextView
             android:id="@+id/homeApp5"
-            style="@style/TextLarge"
+            style="@style/TextHomeApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -145,7 +143,7 @@
 
         <TextView
             android:id="@+id/homeApp6"
-            style="@style/TextLarge"
+            style="@style/TextHomeApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -157,7 +155,7 @@
 
         <TextView
             android:id="@+id/homeApp7"
-            style="@style/TextLarge"
+            style="@style/TextHomeApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -169,7 +167,7 @@
 
         <TextView
             android:id="@+id/homeApp8"
-            style="@style/TextLarge"
+            style="@style/TextHomeApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -187,10 +185,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="@dimen/screen_margin"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="56dp"
         android:text="@string/swipe_up_for_apps"
+        android:textColor="?attr/secondaryColor"
         android:visibility="gone"
         tools:visibility="visible" />
 

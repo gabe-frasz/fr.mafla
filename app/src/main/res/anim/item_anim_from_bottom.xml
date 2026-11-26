@@ -1,23 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One app list row entering; rows cascade through layout_anim_from_bottom.
+     Starts once the list itself is fading in. -->
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="200">
-
+    android:shareInterpolator="false"
+    android:startOffset="@integer/motion_handoff">
     <translate
-        android:fromYDelta="20%"
-        android:interpolator="@android:anim/decelerate_interpolator"
+        android:duration="@integer/motion_enter"
+        android:fromYDelta="50%"
+        android:interpolator="@interpolator/emphasized_decelerate"
         android:toYDelta="0" />
-
     <alpha
+        android:duration="300"
         android:fromAlpha="0"
-        android:interpolator="@android:anim/decelerate_interpolator"
+        android:interpolator="@interpolator/standard_decelerate"
         android:toAlpha="1" />
-
-    <scale
-        android:fromXScale="100%"
-        android:fromYScale="110%"
-        android:interpolator="@android:anim/decelerate_interpolator"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:toXScale="100%"
-        android:toYScale="100%" />
-
 </set>
