@@ -9,6 +9,9 @@
     <string name="on">Ligado</string>
     <string name="black">Preto</string>
     <string name="white">Branco</string>
+    <string name="wallpaper">Papel de parede</string>
+    <string name="keep_current">Manter o atual</string>
+    <string name="theme_wallpaper_message">Manter o papel de parede atual ou trocar por um liso que combine com o novo tema?</string>
     <string name="change_default_launcher">Alterar launcher padrão</string>
 
     <string name="swipe_up_for_apps">1. Deslize para cima para ver todos os aplicativos\n2. Pressione e segure em qualquer lugar para acessar as configurações</string>
