@@ -34,6 +34,7 @@
         <item name="tertiaryColor">@color/ink_light_tertiary</item>
         <item name="groundScrimColor">@color/ground_light_scrim</item>
         <item name="lineColor">@color/ink_light_line</item>
+        <item name="edgeColor">@color/ink_light_edge</item>
         <item name="primaryInverseColor">@color/blackInverse</item>
         <item name="primaryTextShadowColor">@color/blackInverseTrans25</item>
         <item name="primaryColorTrans50">@color/ink_light_trans50</item>

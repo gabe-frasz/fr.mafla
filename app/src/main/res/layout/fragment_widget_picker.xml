@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/primaryShadeDarkColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="56dp" />
+
+        <!-- The query text lines up with the list text, 64dp from the edge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="14dp"
+                android:contentDescription="@string/back"
+                android:scaleType="center"
+                android:src="@drawable/ic_back"
+                android:stateListAnimator="@animator/press_fade"
+                app:tint="?attr/secondaryColor" />
+
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="@dimen/screen_margin"
+                android:layout_weight="1"
+                android:background="@null"
+                android:fontFamily="?attr/mainFontFamily"
+                android:hint="@string/search_widgets"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="text|textNoSuggestions"
+                android:letterSpacing="-0.01"
+                android:maxLines="1"
+                android:textColor="?attr/primaryColor"
+                android:textColorHint="?attr/secondaryColor"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_search" />
+        </LinearLayout>
+
+        <fr.mafla.ui.widget.FadingEdgeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/widgetList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingHorizontal="@dimen/screen_margin"
+                android:paddingBottom="120dp"
+                android:scrollbars="none"
+                tools:listitem="@layout/item_widget_picker_app" />
+        </fr.mafla.ui.widget.FadingEdgeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/noResults"
+        style="@style/TextCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginTop="136dp"
+        android:text="@string/no_widgets_found"
+        android:visibility="gone" />
+</FrameLayout>

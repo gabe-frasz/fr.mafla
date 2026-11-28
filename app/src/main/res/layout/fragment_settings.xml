@@ -32,7 +32,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="-14dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:stateListAnimator="@animator/press_fade"
                 android:contentDescription="@string/back"
                 android:scaleType="center"
                 android:src="@drawable/ic_back"
@@ -57,7 +57,7 @@
             <LinearLayout
                 android:id="@+id/homeAppsNumRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -72,7 +72,7 @@
             <LinearLayout
                 android:id="@+id/dateTimeRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -87,7 +87,7 @@
             <LinearLayout
                 android:id="@+id/alignmentRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -102,7 +102,7 @@
             <LinearLayout
                 android:id="@+id/screenTimeLayout"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -125,7 +125,7 @@
             <LinearLayout
                 android:id="@+id/groupsRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -147,7 +147,7 @@
             <LinearLayout
                 android:id="@+id/alphabetIndexRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -162,7 +162,7 @@
             <LinearLayout
                 android:id="@+id/autoShowKeyboardRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -177,7 +177,7 @@
             <LinearLayout
                 android:id="@+id/hiddenAppsRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -207,7 +207,7 @@
             <LinearLayout
                 android:id="@+id/appThemeRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -222,7 +222,7 @@
             <LinearLayout
                 android:id="@+id/statusBarRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -237,7 +237,7 @@
             <LinearLayout
                 android:id="@+id/boldFontRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -252,7 +252,7 @@
             <LinearLayout
                 android:id="@+id/textSizeRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -267,7 +267,7 @@
             <LinearLayout
                 android:id="@+id/animationsRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -290,7 +290,7 @@
             <LinearLayout
                 android:id="@+id/swipeLeftRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -304,7 +304,7 @@
             <LinearLayout
                 android:id="@+id/swipeRightRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -318,7 +318,7 @@
             <LinearLayout
                 android:id="@+id/toggleLockRow"
                 style="@style/SettingsRow"
-                android:background="?android:attr/selectableItemBackground">
+                android:stateListAnimator="@animator/press_fade">
 
                 <TextView
                     style="@style/SettingsLabel"
@@ -343,7 +343,7 @@
                 style="@style/SettingsLabel"
                 android:layout_width="match_parent"
                 android:layout_weight="0"
-                android:background="?android:attr/selectableItemBackground"
+                android:stateListAnimator="@animator/press_fade"
                 android:gravity="center_vertical"
                 android:minHeight="@dimen/settings_row_height"
                 android:text="@string/set_as_default_launcher" />
@@ -353,7 +353,7 @@
                 style="@style/SettingsLabel"
                 android:layout_width="match_parent"
                 android:layout_weight="0"
-                android:background="?android:attr/selectableItemBackground"
+                android:stateListAnimator="@animator/press_fade"
                 android:gravity="center_vertical"
                 android:minHeight="@dimen/settings_row_height"
                 android:text="@string/app_info" />

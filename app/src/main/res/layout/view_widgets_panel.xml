@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The widgets panel beside the home screen; WidgetsPanel fills it in -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="invisible"
+    tools:visibility="visible">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="56dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/screen_margin">
+
+            <TextView
+                style="@style/TextScreenTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:accessibilityHeading="true"
+                android:text="@string/widgets"
+                android:textColor="?attr/primaryColor"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/panelEdit"
+                style="@style/TextSmallBold"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:fontFamily="@font/inter_medium"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:stateListAnimator="@animator/press_fade"
+                android:text="@string/edit"
+                android:visibility="gone"
+                tools:ignore="RtlSymmetry"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/editHint"
+            style="@style/TextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingHorizontal="@dimen/screen_margin"
+            android:text="@string/widgets_edit_hint"
+            android:textColor="?attr/secondaryColor"
+            android:visibility="gone" />
+
+        <fr.mafla.ui.widget.FadingEdgeLayout
+            android:id="@+id/widgetsListFrame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/widgetsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingHorizontal="@dimen/widget_list_padding"
+                android:paddingBottom="120dp"
+                android:scrollbars="none"
+                tools:listitem="@layout/item_panel_widget" />
+        </fr.mafla.ui.widget.FadingEdgeLayout>
+
+        <!-- In edit mode "Add widget" stays put above the bottom edge -->
+        <TextView
+            android:id="@+id/addWidgetPinned"
+            style="@style/TextLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_marginStart="@dimen/screen_margin"
+            android:layout_marginBottom="40dp"
+            android:drawablePadding="12dp"
+            android:drawableTint="?attr/primaryColor"
+            android:gravity="center_vertical"
+            android:stateListAnimator="@animator/press_fade"
+            android:text="@string/add_widget"
+            android:visibility="gone"
+            android:drawableStart="@drawable/ic_add_large" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/screen_margin"
+        android:paddingBottom="120dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            style="@style/TextHomeApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/widgets_empty_title" />
+
+        <TextView
+            style="@style/TextDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="2sp"
+            android:maxWidth="300dp"
+            android:text="@string/widgets_empty_message" />
+
+        <TextView
+            android:id="@+id/emptyAdd"
+            style="@style/TextLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="12dp"
+            android:drawableTint="?attr/primaryColor"
+            android:gravity="center_vertical"
+            android:stateListAnimator="@animator/press_fade"
+            android:text="@string/add_widget"
+            android:drawableStart="@drawable/ic_add_large" />
+
+        <TextView
+            style="@style/TextCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/widgets_empty_hint" />
+    </LinearLayout>
+</FrameLayout>

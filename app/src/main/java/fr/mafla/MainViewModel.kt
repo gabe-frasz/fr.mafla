@@ -58,6 +58,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val showDialog = SingleLiveEvent<String>()
     val checkForMessages = SingleLiveEvent<Unit?>()
     val resetLauncherLiveData = SingleLiveEvent<Unit?>()
+
+    /** The widgets panel is open. Kept here so it stays open while the home screen's view is rebuilt. */
+    var widgetsPanelOpen = false
+
+    /** A widget was just added to the panel; carries its id. */
+    val widgetAdded = SingleLiveEvent<Int?>()
+
+    /** The home button was pressed: the panel goes back to the home screen. */
+    val closeWidgetsPanel = SingleLiveEvent<Unit?>()
     // Home button for recents feature disabled
     // val showRecentApps = SingleLiveEvent<Unit?>()
 
@@ -275,6 +284,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun saveSwipeApp(appModel: AppModel, isLeft: Boolean) {
+        if (appModel is AppModel.PrivateSpaceHeader) return
+        // Picking an app for swipe left means it no longer opens the widgets panel
+        if (isLeft) prefs.swipeLeftWidgets = false
         when (appModel) {
             is AppModel.PrivateSpaceHeader -> return
             is AppModel.App -> {

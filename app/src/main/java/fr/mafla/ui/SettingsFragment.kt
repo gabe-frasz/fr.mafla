@@ -108,7 +108,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
             R.id.textSizeValue -> showTextSizeDialog()
             R.id.boldFont -> toggleBoldFont()
 
-            R.id.swipeLeftApp -> showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP)
+            R.id.swipeLeftApp -> showSwipeLeftMenu(view)
             R.id.swipeRightApp -> showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP)
 
             R.id.groupsCount -> findNavController().navigate(R.id.action_settingsFragment_to_groupsFragment)
@@ -599,7 +599,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
     }
 
     private fun populateSwipeApps() {
-        binding.swipeLeftApp.text = prefs.appNameSwipeLeft
+        binding.swipeLeftApp.text = if (prefs.swipeLeftWidgets) getString(R.string.widgets) else prefs.appNameSwipeLeft
         binding.swipeRightApp.text = prefs.appNameSwipeRight
         if (!prefs.swipeLeftEnabled)
             binding.swipeLeftApp.setTextColor(requireContext().getColorFromAttr(R.attr.primaryColorTrans50))
@@ -612,6 +612,29 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
 //                && requireContext().isPackageInstalled(Constants.DIGITAL_WELLBEING_SAMSUNG_PACKAGE_NAME).not()
 //                && prefs.hideDigitalWellbeing.not()
 //    }
+
+    // Swipe left opens the widgets panel or an app
+    private fun showSwipeLeftMenu(anchor: View) {
+        if (!prefs.swipeLeftEnabled) {
+            requireContext().showToast(getString(R.string.long_press_to_enable))
+            return
+        }
+        anchor.showPopupMenu(
+            configure = { menu ->
+                menu.add(Menu.NONE, MENU_SWIPE_LEFT_WIDGETS, 0, R.string.widgets)
+                menu.add(Menu.NONE, MENU_SWIPE_LEFT_APP, 1, R.string.choose_app)
+            }
+        ) { item ->
+            when (item.itemId) {
+                MENU_SWIPE_LEFT_WIDGETS -> {
+                    prefs.swipeLeftWidgets = true
+                    populateSwipeApps()
+                }
+
+                MENU_SWIPE_LEFT_APP -> showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP)
+            }
+        }
+    }
 
     private fun showAppListIfEnabled(flag: Int) {
         if ((flag == Constants.FLAG_SET_SWIPE_LEFT_APP) and !prefs.swipeLeftEnabled) {
@@ -641,5 +664,10 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, View.OnLongClickL
     override fun onDestroy() {
         viewModel.checkForMessages.call()
         super.onDestroy()
+    }
+
+    private companion object {
+        const val MENU_SWIPE_LEFT_WIDGETS = 1
+        const val MENU_SWIPE_LEFT_APP = 2
     }
 }
