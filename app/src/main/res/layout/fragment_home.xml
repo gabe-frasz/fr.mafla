@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- The home screen, with the widgets panel beside it: a sideways drag brings the panel in
+     from the right edge under the finger. -->
+<fr.mafla.ui.widget.SwipePanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homePager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<FrameLayout
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -207,3 +214,9 @@
         android:text="@string/set_as_default_launcher_u"
         android:visibility="gone" />
 </FrameLayout>
+
+<include
+    android:id="@+id/widgetsPanel"
+    layout="@layout/view_widgets_panel" />
+
+</fr.mafla.ui.widget.SwipePanelLayout>

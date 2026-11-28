@@ -66,6 +66,7 @@ object Constants {
 
     const val REQUEST_CODE_ENABLE_ADMIN = 666
     const val REQUEST_CODE_LAUNCHER_SELECTOR = 678
+    const val REQUEST_CODE_CONFIGURE_WIDGET = 679
 
     // Extra hold on top of the system long-press timeout before home long presses fire
     const val LONG_PRESS_DELAY_MS = 150L

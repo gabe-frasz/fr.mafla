@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One widget in the panel. The caption row and the resize handle show only in edit mode. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginHorizontal="@dimen/widget_outline_offset"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/dragHandle"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="-8dp"
+            android:layout_marginEnd="4dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_reorder"
+            app:tint="?attr/secondaryColor" />
+
+        <TextView
+            android:id="@+id/label"
+            style="@style/TextCaption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="?attr/secondaryColor"
+            tools:text="Agenda · Próximos eventos · 4 × 2" />
+
+        <TextView
+            android:id="@+id/remove"
+            style="@style/TextCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:stateListAnimator="@animator/press_fade"
+            android:text="@string/remove"
+            android:textColor="?attr/primaryColor"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <!-- The widget goes in here. The padding leaves room for the edit-mode outline. -->
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:padding="@dimen/widget_outline_offset" />
+
+    <FrameLayout
+        android:id="@+id/resizeHandle"
+        android:layout_width="56dp"
+        android:layout_height="28dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-14dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_resize_handle" />
+    </FrameLayout>
+</LinearLayout>

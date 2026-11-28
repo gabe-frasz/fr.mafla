@@ -30,7 +30,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="-14dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:stateListAnimator="@animator/press_fade"
                 android:contentDescription="@string/back"
                 android:scaleType="center"
                 android:src="@drawable/ic_back"
@@ -75,7 +75,7 @@
                 android:id="@+id/addGroup"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="?android:attr/selectableItemBackground"
+                android:stateListAnimator="@animator/press_fade"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 

@@ -15,13 +15,16 @@ import android.view.WindowInsets
 import android.view.animation.Animation
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import fr.mafla.MainActivity
 import fr.mafla.MainViewModel
 import fr.mafla.R
 import fr.mafla.data.AppModel
@@ -31,6 +34,7 @@ import fr.mafla.databinding.FragmentHomeBinding
 import fr.mafla.helper.BackgroundBlur
 import fr.mafla.helper.appUsagePermissionGranted
 import fr.mafla.helper.expandNotificationDrawer
+import fr.mafla.helper.getColorFromAttr
 import fr.mafla.helper.getUserHandleFromString
 import fr.mafla.helper.isPackageInstalled
 import fr.mafla.helper.openAlarmApp
@@ -40,6 +44,7 @@ import fr.mafla.helper.openDialerApp
 import fr.mafla.helper.showToast
 import fr.mafla.listener.OnSwipeTouchListener
 import fr.mafla.listener.ViewSwipeTouchListener
+import fr.mafla.ui.widget.SwipePanelLayout
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -47,11 +52,22 @@ import java.util.Locale
 class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListener {
 
     private lateinit var prefs: Prefs
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by activityViewModels()
     private lateinit var deviceManager: DevicePolicyManager
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private var widgetsPanel: WidgetsPanel? = null
+
+    // While the widgets panel is open, back leaves edit mode first, then closes the panel
+    private val panelBackCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            val panel = widgetsPanel
+            if (panel?.editing == true) panel.setEditing(false)
+            else _binding?.homePager?.close()
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -61,9 +77,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefs = Prefs(requireContext())
-        viewModel = activity?.run {
-            ViewModelProvider(this)[MainViewModel::class.java]
-        } ?: throw Exception("Invalid Activity")
 
         deviceManager = context?.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
 
@@ -74,17 +87,21 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         setHomeAlignment(prefs.homeAlignment)
         initSwipeTouchListener()
         initClickListeners()
+        initWidgetsPanel()
     }
 
     // Home is the only screen with a sharp wallpaper: blur it as home leaves, clear it as
-    // home comes back, in step with the screen transition.
+    // home comes back, in step with the screen transition. The widgets panel keeps it blurred.
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
-        activity?.window?.let { BackgroundBlur.set(it, on = !enter) }
+        activity?.window?.let { BackgroundBlur.set(it, on = !enter || viewModel.widgetsPanelOpen) }
         return super.onCreateAnimation(transit, enter, nextAnim)
     }
 
     override fun onResume() {
         super.onResume()
+        binding.homePager.canOpen = widgetsOnSwipeLeft()
+        if (!binding.homePager.canOpen && binding.homePager.isOpen) binding.homePager.close(animate = false)
+        widgetsPanel?.reload()
         populateHomeScreen(false)
         viewModel.isMaflaDefault()
         if (prefs.showStatusBar) showStatusBar()
@@ -204,6 +221,13 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         }
         viewModel.screenTimeValue.observe(viewLifecycleOwner) {
             it?.let { binding.tvScreenTime.text = getString(R.string.screen_time_today, it) }
+        }
+        viewModel.widgetAdded.observe(viewLifecycleOwner) { id ->
+            widgetsPanel?.reload()
+            id?.let { widgetsPanel?.scrollTo(it) }
+        }
+        viewModel.closeWidgetsPanel.observe(viewLifecycleOwner) {
+            binding.homePager.close(animate = isResumed)
         }
         // Home button for recents feature disabled
         // viewModel.showRecentApps.observe(viewLifecycleOwner) {
@@ -504,6 +528,58 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         )
     }
 
+    // Swipes that the panel didn't follow (a quick, slanted flick) still open it
+    private fun onSwipeLeftGesture() {
+        if (prefs.swipeLeftWidgets) {
+            if (widgetsOnSwipeLeft()) binding.homePager.open()
+        } else openSwipeLeftApp()
+    }
+
+    private fun widgetsOnSwipeLeft() = prefs.swipeLeftEnabled && prefs.swipeLeftWidgets
+
+    private fun initWidgetsPanel() {
+        val pager = binding.homePager
+        val activity = requireActivity()
+        val blurred = BackgroundBlur.isAvailable(activity.window)
+        pager.setScrimColor(
+            requireContext().getColorFromAttr(if (blurred) R.attr.primaryShadeDarkColor else R.attr.dialogShadeColor)
+        )
+        pager.canOpen = widgetsOnSwipeLeft()
+        pager.listener = object : SwipePanelLayout.Listener {
+            override fun onPanelTarget(open: Boolean) {
+                viewModel.widgetsPanelOpen = open
+                panelBackCallback.isEnabled = open
+                BackgroundBlur.set(activity.window, open)
+                if (!open) widgetsPanel?.setEditing(false)
+            }
+        }
+        widgetsPanel = WidgetsPanel(
+            binding.widgetsPanel,
+            (activity as MainActivity).widgetViews,
+            onAddWidget = ::openWidgetPicker,
+        )
+        activity.onBackPressedDispatcher.addCallback(viewLifecycleOwner, panelBackCallback)
+        // Coming back from another screen with the panel open
+        if (viewModel.widgetsPanelOpen) pager.open(animate = false)
+
+        ViewCompat.addAccessibilityAction(binding.mainLayout, getString(R.string.open_widgets)) { _, _ ->
+            if (pager.canOpen) pager.open()
+            pager.canOpen
+        }
+        ViewCompat.addAccessibilityAction(binding.widgetsPanel.root, getString(R.string.back_to_home)) { _, _ ->
+            pager.close()
+            true
+        }
+    }
+
+    private fun openWidgetPicker() {
+        try {
+            findNavController().navigate(R.id.action_mainFragment_to_widgetPickerFragment)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     private fun openSwipeLeftApp() {
         if (!prefs.swipeLeftEnabled) return
         launchAppOrShortcut(
@@ -615,7 +691,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         return object : OnSwipeTouchListener(context) {
             override fun onSwipeLeft() {
                 super.onSwipeLeft()
-                openSwipeLeftApp()
+                onSwipeLeftGesture()
             }
 
             override fun onSwipeRight() {
@@ -663,7 +739,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         return object : ViewSwipeTouchListener(context, view) {
             override fun onSwipeLeft() {
                 super.onSwipeLeft()
-                openSwipeLeftApp()
+                onSwipeLeftGesture()
             }
 
             override fun onSwipeRight() {
@@ -694,6 +770,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     override fun onDestroyView() {
+        widgetsPanel?.release()
+        widgetsPanel = null
         super.onDestroyView()
         _binding = null
     }

@@ -2,6 +2,7 @@ package fr.mafla
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.appwidget.AppWidgetProviderInfo
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -22,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import fr.mafla.data.Constants
+import fr.mafla.data.PanelWidget
 import fr.mafla.data.Prefs
 import fr.mafla.databinding.ActivityMainBinding
 import fr.mafla.helper.getColorFromAttr
@@ -29,6 +31,10 @@ import fr.mafla.helper.hasBeenHours
 import fr.mafla.helper.hasBeenMinutes
 import fr.mafla.helper.isDefaultLauncher
 import fr.mafla.helper.MaflaDialog
+import fr.mafla.helper.MaflaWidgetHost
+import fr.mafla.helper.PanelWidgetHostView
+import fr.mafla.helper.WidgetSetup
+import fr.mafla.helper.WidgetSizes
 import fr.mafla.helper.isEinkDisplay
 import fr.mafla.helper.isMotionEnabled
 import fr.mafla.helper.isTablet
@@ -51,6 +57,13 @@ class MainActivity : AppCompatActivity() {
     private var profileReceiver: BroadcastReceiver? = null
     private var launcherAppsCallback: LauncherApps.Callback? = null
     private var messageDialog: MaflaDialog? = null
+
+    /** Takes a widget picked in the widget picker through binding and setup. */
+    lateinit var widgetSetup: WidgetSetup
+        private set
+
+    /** Views of the panel's widgets, kept while the home screen's view comes and goes. */
+    val widgetViews = HashMap<Int, PanelWidgetHostView>()
 
 //    override fun onBackPressed() {
 //        if (navController.currentDestination?.id != R.id.mainFragment)
@@ -76,6 +89,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = this.findNavController(R.id.nav_host_fragment)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        widgetSetup = WidgetSetup(this, ::onWidgetAdded)
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -118,6 +132,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        MaflaWidgetHost.get(this).startListeningSafely()
         restartLauncherOrCheckTheme()
     }
 
@@ -160,6 +175,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         isResumed = false
         backToHomeScreen()
+        MaflaWidgetHost.get(this).stopListeningSafely()
         super.onStop()
     }
 
@@ -171,6 +187,8 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent?) {
         // Home button for recents feature disabled
         // val alreadyHome = navController.currentDestination?.id == R.id.mainFragment
+        viewModel.widgetsPanelOpen = false
+        viewModel.closeWidgetsPanel.call()
         backToHomeScreen()
         // if (alreadyHome && isResumed && prefs.homeButtonShowRecents)
         //     viewModel.showRecentApps.call()
@@ -255,6 +273,14 @@ class MainActivity : AppCompatActivity() {
             navController.popBackStack(R.id.mainFragment, false)
     }
 
+    private fun onWidgetAdded(id: Int, info: AppWidgetProviderInfo) {
+        prefs.addPanelWidget(PanelWidget(id, WidgetSizes.defaultHeightDp(info, resources.displayMetrics.density)))
+        // Back on the home screen, with the panel open on the new widget
+        viewModel.widgetsPanelOpen = true
+        backToHomeScreen()
+        viewModel.widgetAdded.value = id
+    }
+
     private fun openLauncherChooser(resetFailed: Boolean) {
         if (resetFailed) {
             val intent = Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS)
@@ -287,6 +313,8 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         messageDialog?.dismiss()
         messageDialog = null
+        widgetViews.clear()
+        MaflaWidgetHost.get(this).forgetViews()
         launcherAppsCallback?.let {
             getSystemService(LauncherApps::class.java).unregisterCallback(it)
         }
@@ -312,6 +340,8 @@ class MainActivity : AppCompatActivity() {
                 if (resultCode == Activity.RESULT_OK)
                     resetLauncherViaFakeActivity()
             }
+
+            Constants.REQUEST_CODE_CONFIGURE_WIDGET -> widgetSetup.onConfigureResult(resultCode)
         }
     }
 }

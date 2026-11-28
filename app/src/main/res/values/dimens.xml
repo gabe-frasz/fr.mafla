@@ -30,4 +30,12 @@
     <!-- Soft fades where lists scroll under an edge -->
     <dimen name="list_fade_top">48dp</dimen>
     <dimen name="list_fade_bottom">72dp</dimen>
+
+    <!-- Widgets panel. Widgets sit at the screen margin; their edit-mode outline sits
+         widget_outline_offset outside them, so the list itself starts that much closer. -->
+    <dimen name="widget_outline_offset">6dp</dimen>
+    <dimen name="widget_list_padding">22dp</dimen>
+    <dimen name="widget_gap">16dp</dimen>
+    <dimen name="widget_gap_editing">28dp</dimen>
+    <dimen name="widget_preview_max_height">200dp</dimen>
 </resources>

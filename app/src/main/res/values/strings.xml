@@ -35,8 +35,8 @@
     <string name="right">Right</string>
     <string name="center">Center</string>
     <string name="home_layout_alignment">App alignment</string>
-    <string name="swipe_left_app">Swipe left app</string>
-    <string name="swipe_right_app">Swipe right app</string>
+    <string name="swipe_left_app">Swipe left</string>
+    <string name="swipe_right_app">Swipe right</string>
     <string name="_8">8</string>
     <string name="okay">Okay</string>
     <string name="auto_show_keyboard">Auto show keyboard</string>
@@ -105,7 +105,6 @@
     <string name="notification_bar">Notification bar</string>
     <string name="private_space">Private space</string>
     <string name="invalid_pin_request">Invalid pin request</string>
-    <string name="widgets_not_supported">Widgets are not supported</string>
     <string name="pin_action_not_supported">This pin action is not supported</string>
     <string name="shortcut_pinned">Shortcut added</string>
     <string name="shortcut_pin_failed">Could not add shortcut</string>
@@ -153,5 +152,27 @@
         <item quantity="one">%d app</item>
         <item quantity="other">%d apps</item>
     </plurals>
+
+    <!-- Widgets panel -->
+    <string name="widgets">Widgets</string>
+    <string name="edit">Edit</string>
+    <string name="done">Done</string>
+    <string name="add_widget">Add widget</string>
+    <string name="widgets_empty_title">No widgets yet</string>
+    <string name="widgets_empty_message">Widgets from other apps live here, one swipe away from the home screen.</string>
+    <string name="widgets_empty_hint">Or touch and hold any empty space on the panel.</string>
+    <string name="widgets_edit_hint">Drag the handle to reorder. Pull the bottom edge to change the height.</string>
+    <string name="reorder_widget">Reorder %1$s</string>
+    <string name="resize_widget">Change the height of %1$s</string>
+    <string name="remove_widget">Remove %1$s</string>
+    <string name="widget_size" translatable="false">%1$d × %2$d</string>
+    <string name="add_widget_named">Add %1$s, %2$d by %3$d</string>
+    <string name="search_widgets">Search widgets</string>
+    <string name="no_widgets_found">No widgets found</string>
+    <string name="widget_added">Widget added to the panel</string>
+    <string name="widget_add_failed">Couldn\'t add the widget</string>
+    <string name="open_widgets">Open widgets</string>
+    <string name="back_to_home">Back to the home screen</string>
+    <string name="choose_app">Choose app…</string>
 
 </resources>

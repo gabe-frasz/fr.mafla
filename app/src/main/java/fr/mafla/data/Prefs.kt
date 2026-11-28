@@ -40,6 +40,9 @@ class Prefs(context: Context) {
     private val LAST_GROUP_ID = "LAST_GROUP_ID"
     private val SHOW_ALL_TAB = "SHOW_ALL_TAB"
     private val ANIMATIONS_ENABLED = "ANIMATIONS_ENABLED"
+    private val PANEL_WIDGETS = "PANEL_WIDGETS"
+    private val PENDING_WIDGET_ID = "PENDING_WIDGET_ID"
+    private val SWIPE_LEFT_WIDGETS = "SWIPE_LEFT_WIDGETS"
     // Home button for recents feature disabled
     // private val HOME_BUTTON_SHOW_RECENTS = "HOME_BUTTON_SHOW_RECENTS"
 
@@ -238,6 +241,30 @@ class Prefs(context: Context) {
     var animationsEnabled: Boolean
         get() = prefs.getBoolean(ANIMATIONS_ENABLED, true)
         set(value) = prefs.edit { putBoolean(ANIMATIONS_ENABLED, value) }
+
+    /** Widgets on the widgets panel, top to bottom. */
+    var panelWidgets: List<PanelWidget>
+        get() = PanelWidgets.decode(panelWidgetsJson)
+        set(value) = prefs.edit { putString(PANEL_WIDGETS, PanelWidgets.encode(value)) }
+
+    /** Adds [widget] at the bottom of the panel. */
+    fun addPanelWidget(widget: PanelWidget) {
+        panelWidgets = panelWidgets.filterNot { it.id == widget.id } + widget
+    }
+
+    /** The stored form of [panelWidgets], to tell cheaply whether it changed. */
+    val panelWidgetsJson: String
+        get() = prefs.getString(PANEL_WIDGETS, "").toString()
+
+    /** Widget id being bound or configured right now, kept across a recreated activity. */
+    var pendingWidgetId: Int
+        get() = prefs.getInt(PENDING_WIDGET_ID, 0)
+        set(value) = prefs.edit { putInt(PENDING_WIDGET_ID, value) }
+
+    /** Swiping left on the home screen opens the widgets panel instead of an app. */
+    var swipeLeftWidgets: Boolean
+        get() = prefs.getBoolean(SWIPE_LEFT_WIDGETS, true)
+        set(value) = prefs.edit { putBoolean(SWIPE_LEFT_WIDGETS, value) }
 
     var hiddenApps: MutableSet<String>
         get() = prefs.getStringSet(HIDDEN_APPS, mutableSetOf()) as MutableSet<String>

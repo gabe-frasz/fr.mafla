@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "Add widget" at the end of the panel's list -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addWidget"
+    style="@style/TextSmall"
+    android:layout_width="wrap_content"
+    android:layout_height="52dp"
+    android:layout_marginStart="@dimen/widget_outline_offset"
+    android:layout_marginTop="4dp"
+    android:drawableStart="@drawable/ic_add"
+    android:drawablePadding="12dp"
+    android:drawableTint="?attr/secondaryColor"
+    android:gravity="center_vertical"
+    android:stateListAnimator="@animator/press_fade"
+    android:text="@string/add_widget"
+    android:textColor="?attr/secondaryColor" />

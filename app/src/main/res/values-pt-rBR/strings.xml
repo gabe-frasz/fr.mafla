@@ -20,8 +20,8 @@
     <string name="right">Direita</string>
     <string name="center">Centro</string>
     <string name="home_layout_alignment">Alinhamento de aplicativos</string>
-    <string name="swipe_left_app">Aplicativo ao deslizar para a esquerda</string>
-    <string name="swipe_right_app">Aplicativo ao deslizar para a direita</string>
+    <string name="swipe_left_app">Deslizar para a esquerda</string>
+    <string name="swipe_right_app">Deslizar para a direita</string>
     <string name="_8">8</string>
     <string name="okay">Ok</string>
     <string name="auto_show_keyboard">Exibição automática do teclado</string>
@@ -86,7 +86,6 @@
     <string name="notification_bar">Barra de notificações</string>
     <string name="private_space">Espaço privado</string>
     <string name="invalid_pin_request">Solicitação de fixação inválida</string>
-    <string name="widgets_not_supported">Widgets não são compatíveis</string>
     <string name="pin_action_not_supported">Esta ação de fixação não é compatível</string>
     <string name="shortcut_pinned">Atalho adicionado</string>
     <string name="shortcut_pin_failed">Não foi possível adicionar o atalho</string>
@@ -136,5 +135,26 @@
         <item quantity="one">%d app</item>
         <item quantity="other">%d apps</item>
     </plurals>
+
+    <!-- Painel de widgets -->
+    <string name="widgets">Widgets</string>
+    <string name="edit">Editar</string>
+    <string name="done">Concluir</string>
+    <string name="add_widget">Adicionar widget</string>
+    <string name="widgets_empty_title">Nenhum widget ainda</string>
+    <string name="widgets_empty_message">Widgets de outros apps ficam aqui, a um deslize da tela inicial.</string>
+    <string name="widgets_empty_hint">Ou segure qualquer espaço vazio do painel.</string>
+    <string name="widgets_edit_hint">Arraste pela alça para reordenar. Puxe a borda de baixo para mudar a altura.</string>
+    <string name="reorder_widget">Reordenar %1$s</string>
+    <string name="resize_widget">Ajustar a altura de %1$s</string>
+    <string name="remove_widget">Remover %1$s</string>
+    <string name="add_widget_named">Adicionar %1$s, %2$d por %3$d</string>
+    <string name="search_widgets">Buscar widgets</string>
+    <string name="no_widgets_found">Nenhum widget encontrado</string>
+    <string name="widget_added">Widget adicionado ao painel</string>
+    <string name="widget_add_failed">Não deu para adicionar o widget</string>
+    <string name="open_widgets">Abrir widgets</string>
+    <string name="back_to_home">Voltar à tela inicial</string>
+    <string name="choose_app">Escolher app…</string>
 
 </resources>

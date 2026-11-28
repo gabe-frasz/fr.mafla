@@ -11,4 +11,9 @@
     <integer name="motion_switch">250</integer>
     <integer name="motion_fade">200</integer>
     <integer name="motion_blur">350</integer>
+    <!-- Touch feedback: a control dims while pressed, then comes back -->
+    <integer name="motion_press">80</integer>
+    <integer name="motion_release">150</integer>
+    <!-- Widgets panel settling after the finger lets go (scaled by the distance left) -->
+    <integer name="motion_panel">350</integer>
 </resources>
